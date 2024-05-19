@@ -4,7 +4,7 @@ import { LoginButton } from "@/components/auth/login-button";
 import { NavLogo } from "@/components/nav-logo";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Nanum_Gothic_Coding, Poppins, Roboto } from "next/font/google";
+import { Manrope, Nanum_Gothic_Coding, Poppins, Roboto } from "next/font/google";
 import Image from "next/image";
 
 const font = Poppins({
@@ -12,7 +12,7 @@ const font = Poppins({
   weight: ["600"],
 });
 
-const title = Nanum_Gothic_Coding({
+const title = Manrope({
   subsets: ["latin"],
   weight: ["400"],
 });
@@ -102,7 +102,7 @@ export default function Home() {
             src="/logo.png"
             width={800}
             height={800}
-            className="w-[90%] max-h-[80vh] h-auto mx-auto transition-all main-logo !aspect-square"
+            className="w-[90%] mx-auto transition-all duration-500 hover:rotate-[180deg] aspect-square"
           />
         </div>
       </section>
