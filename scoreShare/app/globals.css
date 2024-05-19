@@ -100,12 +100,6 @@
     top: 50%;
   }
 
-  .auth-page {
-    background: url("../public/Croquis.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-
   #card-background {
     filter: contrast(100%) opacity(60%);
   }
