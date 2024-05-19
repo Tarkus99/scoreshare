@@ -1,0 +1,125 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model User {
+  id            String          @id @default(cuid())
+  name          String?
+  email         String?         @unique
+  emailVerified DateTime?
+  password      String?
+  role          String          @default("USER")
+  image         String?
+  accounts      Account[]
+  files         File[]
+  comments      Comment[]
+  votes         VoteInComment[]
+}
+
+model VerificationToken {
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model PasswordResetToken {
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model Track {
+  id        String   @id @default(cuid())
+  name      String
+  source    String
+  date      DateTime
+  key       String
+  tempo     Int
+  image     String
+  createdAt DateTime @default(now())
+  artists   Artist[]
+  files     File[]
+}
+
+model Artist {
+  id     String  @id @default(uuid()) @db.VarChar(100)
+  name   String
+  link   String
+  tracks Track[]
+}
+
+model File {
+  id         String    @id @default(cuid())
+  track      Track     @relation(fields: [trackId], references: [id], onDelete: Cascade)
+  trackId    String
+  user       User      @relation(fields: [userId], references: [id])
+  userId     String
+  name       String
+  instrument String
+  url        String
+  uploadedAt DateTime  @default(now())
+  modifiedAt DateTime  @default(now())
+  comments   Comment[]
+  @@unique([userId, name, instrument])
+}
+
+model Comment {
+  id        Int             @id @default(autoincrement())
+  content   String
+  parentId  Int?
+  parent    Comment?        @relation("TeacherStudents", fields: [parentId], references: [id], onDelete: Cascade)
+  replies   Comment[]       @relation("TeacherStudents")
+  user      User            @relation(fields: [userId], references: [id])
+  userId    String
+  file      File            @relation(fields: [fileId], references: [id], onDelete: Cascade)
+  fileId    String
+  votes     VoteInComment[]
+  createdAt DateTime        @default(now())
+}
+
+model VoteInComment {
+  id        Int      @id @default(autoincrement())
+  commentId Int
+  comment   Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vote      Int
+  votedAt   DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
