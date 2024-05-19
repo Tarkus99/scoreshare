@@ -25,11 +25,12 @@ import { Input } from "../ui/input";
 import { FaCircleInfo } from "react-icons/fa6";
 import { AlertMessage } from "../misc/alert";
 import { PasswordInfo } from "./password-info";
+import { useResponseMessages } from "@/hooks/use-response-messages";
 
 export const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(null);
-  const [failed, setFailed] = useState(null);
+  const { failed, setFailed, success, setSuccess, resetMessages } =
+    useResponseMessages();
 
   const form = useForm({
     resolver: yupResolver(RegisterSchema),
@@ -41,8 +42,7 @@ export const RegisterForm = () => {
   });
 
   const onSubmit = (values) => {
-    setFailed("");
-    setSuccess("");
+    resetMessages()
     setLoading(true);
     setTimeout(() => {
       register(values)

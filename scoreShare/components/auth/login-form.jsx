@@ -15,12 +15,11 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 import { LoginSchema } from "@/schemas";
 import { Input } from "../ui/input";
 import { Button } from "@/components/ui/button";
-import { loginWithCredentials } from "@/fetching";
 import { AlertMessage } from "../misc/alert";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { login } from "@/actions/login";
+import { useResponseMessages } from "@/hooks/use-response-messages";
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();
@@ -29,8 +28,8 @@ export const LoginForm = () => {
       ? "Email already in use with different provider!"
       : "";
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(null);
-  const [failed, setFailed] = useState(null);
+  const { failed, setFailed, success, setSuccess, resetMessages } =
+    useResponseMessages();
 
   const form = useForm({
     resolver: yupResolver(LoginSchema),
@@ -41,8 +40,7 @@ export const LoginForm = () => {
   });
 
   const onSubmit = (values) => {
-    setFailed("");
-    setSuccess("");
+    resetMessages();
     setLoading(true);
     setTimeout(() => {
       login(values)

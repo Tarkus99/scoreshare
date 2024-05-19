@@ -49,19 +49,14 @@ export default function Home() {
       <section className="grid w-full grid-cols-1 gap-5 h-max md:h-[89vh]  md:grid-cols-2">
         <div className="flex flex-col h-[inherit] p-1 md:p-0 w-full gap-2 items-center  md:items-end justify-center rounded-sm  bg-gradient-to-b from-purple-400/20 to-emerald-50/10 text-primary">
           <div className="flex items-end ">
-            <Image
-              src="https://static.thenounproject.com/png/654373-200.png"
-              alt="star"
-              width={48}
-              height={48}
-            />
+            <Image src="/star.png" alt="star" width={48} height={48} />
             <small className="font-bold text-white">Best app of 2021</small>
           </div>
           <h1
             className={cn(title.className, "text-5xl leading-snug text-center")}
           >
             <span className="text-white text-shadow-black">
-              It&apos;s all about
+              It&apos;s all about&nbsp;
             </span>
             <span
               className={cn(
@@ -102,7 +97,7 @@ export default function Home() {
             src="/logo.png"
             width={800}
             height={800}
-            className="w-[90%] mx-auto transition-all duration-500 hover:rotate-[180deg] aspect-square"
+            className="w-[80%] mx-auto transition-all duration-500 hover:rotate-[360deg] aspect-square"
           />
         </div>
       </section>
