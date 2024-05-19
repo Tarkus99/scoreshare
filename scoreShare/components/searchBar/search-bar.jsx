@@ -23,16 +23,17 @@ export const SearchBar = ({ isSearching }) => {
     setLoading(true);
     const value = e.target.value;
     if (timeOut) clearTimeout(timeOut);
-
+    
     if (!value) {
       setExistingTracks([]);
       setLoading(false);
       return;
     }
-
+    
     timeOut = setTimeout(async () => {
       try {
         const data = await getAvailableTracks(value);
+        console.log(data);
         setExistingTracks(data);
         setLoading(false);
       } catch (error) {

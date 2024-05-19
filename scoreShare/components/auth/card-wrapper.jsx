@@ -22,7 +22,7 @@ export const CardWrapper = ({
   id
 }) => {
   return (
-    <Card id={id} className="w-11/12 md:w-[29rem] drop-shadow-md relative font-[.8em] bg-slate/50">
+    <Card id={id} className="w-11/12 md:w-[29rem] drop-shadow-md relative font-[.8em] bg-slate-50">
      <CardHeader className="px-5 py-3 space-y-1 text-center">
         <CardTitle >
           <div className="flex items-center justify-center w-full text-center">

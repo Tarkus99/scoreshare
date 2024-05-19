@@ -3,6 +3,7 @@
 import { LoginButton } from "@/components/auth/login-button";
 import { NavLogo } from "@/components/nav-logo";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { Manrope, Nanum_Gothic_Coding, Poppins, Roboto } from "next/font/google";
 import Image from "next/image";
@@ -47,7 +48,7 @@ export default function Home() {
       </nav>
 
       <section className="grid w-full grid-cols-1 gap-5 h-max md:h-[89vh]  md:grid-cols-2">
-        <div className="flex flex-col h-[inherit] p-1 md:p-0 w-full gap-2 items-center  md:items-end justify-center rounded-sm  bg-gradient-to-b from-purple-400/20 to-emerald-50/10 text-primary">
+        <div className="flex flex-col h-[inherit] p-1 md:p-0 w-full gap-2 items-center  md:items-end justify-center rounded-sm  bg-gradient-to-b from-purple-400/20 to-emerald-50/10 text-primary backdrop-blur-[2px]">
           <div className="flex items-end ">
             <Image src="/star.png" alt="star" width={48} height={48} />
             <small className="font-bold text-white">Best app of 2021</small>
@@ -67,10 +68,11 @@ export default function Home() {
               music
             </span>
           </h1>
+          <Separator/>
           <p
             className={cn(
               body.className,
-              "w-full md:w-10/12 my-2 text-center md:text-right hyphens-auto break-before-right"
+              "w-full md:w-10/12 my-2 text-center md:text-right hyphens-auto break-before-right text-primary/80"
             )}
           >
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi

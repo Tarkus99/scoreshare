@@ -7,7 +7,7 @@ import Image from "next/image";
 
 const font = Inter({
   subsets: ["latin"],
-  weight: ["300", "400",],
+  weight: ["300", "400", "500", "600", "700", "800"],
   adjustFontFallback: false,
 });
 

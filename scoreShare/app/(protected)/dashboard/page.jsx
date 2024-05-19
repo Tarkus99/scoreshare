@@ -1,8 +1,11 @@
+import { DashboardParent } from '@/components/dashboard/dashboard-parent'
 import React from 'react'
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <DashboardParent>
+      
+    </DashboardParent>
   )
 }
 

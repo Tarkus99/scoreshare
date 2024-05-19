@@ -112,6 +112,10 @@
     animation: file-comments-parent ease-in-out 0.6s forwards;
   }
 
+  ol{
+    list-style: decimal;
+  }
+
   audio,
   video {
     width: 100%;
