@@ -4,7 +4,6 @@ export const publicRoutes = ["/", "/auth/new-verification"];
 //routes used for authentication. Redirect logged user to profile
 export const authRoutes = [
   "/auth/login",
-  "/auth/login/api",
   "/auth/register",
   "/auth/register/api",
   "/auth/reset",
@@ -12,7 +11,7 @@ export const authRoutes = [
   "/auth/new-verification/api",
   "/auth/new-password",
   "/auth/new-password/api",
-  "/auth/error",
+  "/auth/error"
 ];
 
 //api authentication routes

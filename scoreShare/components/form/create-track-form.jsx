@@ -119,7 +119,6 @@ export const CreateTrackForm = () => {
         setSuccess(data.message);
       })
       .catch((error) => {
-        console.log(error);
         setFailed(error.response.data.message);
       })
       .finally(() => {
@@ -358,7 +357,6 @@ export const CreateTrackForm = () => {
                                 onClear: () => form.setError("date", null),
                               },
                             }}
-                            onChange={() => console.log("hola")}
                           />
                         </FormControl>
                         <FormMessage />

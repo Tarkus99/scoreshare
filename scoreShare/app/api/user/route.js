@@ -1,68 +1,11 @@
 export const dynamic = "force-dynamic";
-import { getUserByEmail } from "@/data/user";
 import { db } from "@/lib/db";
 import { supGetPublicUrl, supUploadAvatar } from "@/lib/supabase";
-import { sendVerfiEmail } from "@/lib/mail";
-import { generateVerifToken } from "@/lib/token";
-import { LoginSchema } from "@/schemas";
-import bcrypt from "bcryptjs";
-import { hasForbiddenContent } from "@/lib/utils";
-
-export async function POST(request) {
-  const data = await request.json();
-  try {
-    const { email, name, password } = await LoginSchema.validate(data);
-
-    if (hasForbiddenContent(name))
-      throw new Error("It is not allowed to insert inapropiate content!");
-
-    const existingUser = await getUserByEmail(email);
-
-    if (existingUser)
-      return Response.json(
-        {
-          message: "Email already taken!",
-        },
-        {
-          status: 400,
-        }
-      );
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    await db.user.create({
-      data: {
-        name,
-        email,
-        password: hashedPassword,
-      },
-    });
-
-    const verificationToken = await generateVerifToken(email);
-    await sendVerfiEmail(verificationToken.email, verificationToken.token);
-
-    //send verification token email
-    return Response.json(
-      {
-        message: "Confirmation email sent!",
-      },
-      {
-        status: 200,
-      }
-    );
-  } catch (error) {
-    console.log(error);
-    return Response.json(
-      {
-        message: error.message,
-      },
-      {
-        status: 500,
-      }
-    );
-  }
-}
+import { resolveError } from "@/lib/error-resolver";
+import { currentUser } from "@/actions/server";
 
 export async function PUT(request) {
+  const user = await currentUser();
   const url = new URL(request.url);
   const id = url.searchParams.get("id");
   const body = await request.formData();
@@ -72,15 +15,10 @@ export async function PUT(request) {
     else userInfo[pair[0]] = pair[1];
   }
 
+  if (user.id !== id)
+    return Response.json({ message: "Unauthorized!" }, { status: 403 });
+
   try {
-    const existsUser = await getUserByEmail(userInfo.email);
-
-    if (!existsUser)
-      return Response.json(
-        { message: "Email doesnt exists!" },
-        { status: 401 }
-      );
-
     if (userInfo.image) {
       const avatarUploadInfo = await supUploadAvatar(userInfo.image);
 
@@ -89,7 +27,6 @@ export async function PUT(request) {
         "avatars",
         avatarUploadInfo.data.path
       );
-      console.log(publicUrl);
       userInfo.image = publicUrl;
     }
 
@@ -103,7 +40,7 @@ export async function PUT(request) {
       { status: 200 }
     );
   } catch (error) {
-    console.log(error);
-    return Response.json({ message: error.message }, { status: 500 });
+    const [status, message] = resolveError(error);
+    return Response.json({ message: message }, { status: status });
   }
 }

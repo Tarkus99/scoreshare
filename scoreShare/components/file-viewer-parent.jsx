@@ -23,7 +23,6 @@ export const FileViewerParent = ({ file, setCurrentFile }) => {
   const getFile = async () => {
     downloadFile(file.url)
       .then((data) => {
-        console.log(data);
         setUrl(URL.createObjectURL(data));
       })
       .finally(() => {

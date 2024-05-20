@@ -16,7 +16,6 @@ export async function GET(request) {
 }
 
 export async function POST(request) {
-  console.log("HOLAAAAAAAAAAAA");
   const body = await request.formData();
   let finalImage = body.get("image");
 
@@ -74,12 +73,7 @@ export async function POST(request) {
       { status: 201 }
     );
   } catch (error) {
-    console.log(error);
-    //DELETE IMAGES ALREADY UPLOADED
-    console.log(error);
     const [status, message] = resolveError(error);
-    console.log(status, message);
-
     return Response.json({ message: message }, { status: status });
   }
 }

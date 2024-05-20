@@ -52,7 +52,6 @@ export const supMoveFile = async (oldName, newName) => {
 
 export const supDownloadFile = async (name) => {
   const { data, error } = await supabase.storage.from("files").download(name);
-  console.log(data);
   return { data, error };
 };
 

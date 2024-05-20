@@ -5,7 +5,6 @@ import { RiSpotifyFill } from "react-icons/ri";
 import { Button } from "./ui/button";
 
 export const TrackInfo = async ({ id }) => {
-  console.log("render track info");
   const trackInfo = await getTrackById(id);
   return (
     <section className="flex flex-wrap items-center justify-center h-auto p-1 rounded-lg bg-slate-100/70">

@@ -17,3 +17,10 @@ export const getUserById = async (id) => {
     return null;
   }
 };
+
+export const insertUser = async (data, conn = db) => {
+    const result = await conn.user.create({
+      data: data ,
+    });
+    return result;
+};

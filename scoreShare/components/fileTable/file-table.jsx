@@ -35,7 +35,6 @@ const FileTable = ({ trackId, setCurrentFile }) => {
           setCopyFiles(data);
         })
         .catch((error) => {
-          console.log(error);
         })
         .finally(() => setLoading(false));
     },
@@ -120,7 +119,7 @@ const FileTable = ({ trackId, setCurrentFile }) => {
                         alt=""
                         width={200}
                         height={200}
-                        src={f.user.image}
+                        src={f.user.image || "/defaultUser.png"}
                         className="w-8 rounded-full aspect-square"
                       />
                       <h1 className="hidden md:block">{f.user.name}</h1>

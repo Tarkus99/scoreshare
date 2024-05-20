@@ -5,10 +5,11 @@ import { ThreeDots } from "react-loader-spinner";
 import { useSearchParams } from "next/navigation";
 import { verifyUser } from "@/fetching";
 import { AlertMessage } from "../misc/alert";
+import { useResponseMessages } from "@/hooks/use-response-messages";
 
 export const NewVerificationForm = () => {
-  const [failed, setFailed] = useState();
-  const [success, setSuccess] = useState();
+  const { setFailed, failed, setSuccess, success, resetMessages } =
+    useResponseMessages();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
   const onSubmit = useCallback(() => {
@@ -17,7 +18,9 @@ export const NewVerificationForm = () => {
       setFailed("Missing token!");
     } else {
       verifyUser(token)
-        .then((_) => setSuccess("Email verified"))
+        .then((_) => {
+          setSuccess("Email verified");
+        })
         .catch((error) => {
           setFailed(error.response.data.message);
         });
@@ -35,8 +38,13 @@ export const NewVerificationForm = () => {
       backButtonLabel="Back to login"
     >
       <div className="flex flex-col items-center justify-center w-full">
-        <ThreeDots />
-        <AlertMessage variant="destructive" message={failed} />
+        {!success && !failed && <ThreeDots />}
+        <AlertMessage
+          title={"Unexpected error."}
+          variant="destructive"
+          message={failed}
+        />
+        <AlertMessage title={"Success"} variant="success" message={success} />
       </div>
     </CardWrapper>
   );

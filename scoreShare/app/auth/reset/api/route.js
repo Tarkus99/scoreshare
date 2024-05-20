@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 import { getUserByEmail } from "@/data/user";
+import { resolveError } from "@/lib/error-resolver";
 import { sendPasswordResetEmail } from "@/lib/mail";
 import { generatePasswordResetToken } from "@/lib/token";
 import { ResetSchema } from "@/schemas";
@@ -21,7 +22,7 @@ export async function POST(request) {
 
     return Response.json({ message: "Reset email sent!" }, { status: 200 });
   } catch (error) {
-    console.log(error);
+    resolveError(error)
     return Response.json({ message: "Something went wrong!" }, { status: 500 });
   }
 }

@@ -3,6 +3,7 @@ export const dynamic = "force-dynamic";
 import { getUserByEmail } from "@/data/user";
 import { getVerificationTokenByToken } from "@/data/verification-token";
 import { db } from "@/lib/db";
+import { resolveError } from "@/lib/error-resolver";
 
 export async function PUT(request) {
   const token = await request.json();
@@ -44,7 +45,7 @@ export async function PUT(request) {
       { status: 200 }
     );
   } catch (error) {
-    console.log(error);
+    resolveError(error)
     return Response.json({ message: "Something went wrong!" }, { status: 500 });
   }
 }

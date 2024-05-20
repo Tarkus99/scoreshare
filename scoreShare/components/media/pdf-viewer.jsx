@@ -34,8 +34,6 @@ export const PdfViewer = ({ url }) => {
   });
   const isMobile = useMediaQuery({ query: "(max-width: 1224px)" });
 
-  console.log(isBigScreen, isDesktopOrLaptop, isMobile, dimensions)
-
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
   }

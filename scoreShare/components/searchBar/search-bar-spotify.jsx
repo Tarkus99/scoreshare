@@ -30,7 +30,6 @@ export const SearchBarSpotify = (props) => {
     } catch (error) {
       if (error.response && error.response.status === 401) {
         const token = await getAccessTokenSpotify();
-        console.log(token);
         localStorage.setItem(
           "spotify_access_token",
           token.access_token.toString()

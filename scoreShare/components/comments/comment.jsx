@@ -28,7 +28,7 @@ export const Comment = ({
                 width={100}
                 height={100}
                 className="w-4 rounded-full"
-                src={info.user.image}
+                src={info.user.image || "/defaultUser.png"}
               />
               <h1 className="font-bold">{info.user.name}</h1>
               <p className="text-muted-foreground">

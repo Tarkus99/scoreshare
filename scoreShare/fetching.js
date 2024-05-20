@@ -17,8 +17,14 @@ const SPOTIFY_SEARCH = axios.create({
   baseURL: "https://api.spotify.com/v1/search?limit=10&market=ES&q=",
 });
 
-export const register = (values) =>
-  API.post("/api/user", values).then((res) => res.data);
+export const register = (values) => API.post("/auth/register/api", values).then(res=>res.data);
+
+export const updateProfile = (user, data) =>
+  API.put(`/api/user?id=${user}`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  }).then((res) => res.data);
 
 export const verifyUser = (token) =>
   API.put("/auth/new-verification/api", token).then((res) => res.data);
@@ -32,13 +38,6 @@ export const resetPassword = (newPassword, token) =>
     JSON.stringify({ newPassword, token })
   ).then((res) => res.data);
 
-export const updateProfile = (user, data) =>
-  API.put(`/api/user?id=${user}`, data, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  }).then((res) => res.data);
-
 export const createTrack = (data) =>
   API.post(`/api/track?`, data, {
     headers: {
@@ -46,8 +45,9 @@ export const createTrack = (data) =>
     },
   }).then((res) => res.data);
 
-export const getAvailableTracks = (query) =>{
- return API.get(`/api/track?query=${query}`).then((res) => res.data);}
+export const getAvailableTracks = (query) => {
+  return API.get(`/api/track?query=${query}`).then((res) => res.data);
+};
 
 export const getAccessTokenSpotify = () =>
   SPOTIFY_TOKEN.post("/api/token", {

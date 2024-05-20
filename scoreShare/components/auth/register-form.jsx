@@ -42,19 +42,17 @@ export const RegisterForm = () => {
   });
 
   const onSubmit = (values) => {
-    resetMessages()
+    resetMessages();
     setLoading(true);
-    setTimeout(() => {
-      register(values)
-        .then((data) => {
-          setSuccess(data.message);
-          console.log(data);
-        })
-        .catch((error) => {
-          setFailed(error.response.data.message);
-        })
-        .finally(() => setLoading(false));
-    }, 500);
+
+    register(values)
+      .then((data) => {
+        setSuccess(data.message);
+      })
+      .catch((error) => {
+        setFailed(error.response.data.message);
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -124,14 +122,11 @@ export const RegisterForm = () => {
                     />
                   </FormControl>
                   <p
-                    className={
-                      (form.getFieldState("password").error
-                        ? "text-destructive"
-                        : "text-muted-foreground") +
-                      " items-start text-[.7rem] gap-2 hidden md:flex"
-                    }
+                    className={"items-start text-[.7rem] gap-2 hidden md:flex"}
                   >
-                    <PasswordInfo />
+                    <PasswordInfo
+                      error={form.getFieldState("password").error}
+                    />
                   </p>
                   <span className="hidden peer:focus:block absolute top-0 z-100 md:hidden left-[30%]">
                     <TooltipProvider>

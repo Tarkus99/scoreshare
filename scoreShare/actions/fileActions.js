@@ -19,7 +19,7 @@ export const getFiles = async (id) => {
     const data = await getFilesByTrackId(id);
     return data;
   } catch (error) {
-    console.log(error);
+    resolveError(error)
     return [];
   }
 };
@@ -29,7 +29,7 @@ export const getFilesByUser = async (id) => {
     const data = await getFilesByUserId(id);
     return data;
   } catch (error) {
-    console.log(error);
+    resolveError(error);
     return [];
   }
 };
@@ -37,7 +37,7 @@ export const getFilesByUser = async (id) => {
 export const uploadFileAlongWithTrack = async (
   formData,
   trackId,
-  conn = undefined
+  conn
 ) => {
   const user = await currentUser();
   const fileToInsert = Object.fromEntries(formData.entries());

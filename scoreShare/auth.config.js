@@ -33,7 +33,7 @@ export default {
 
           if (passwordMatch) return user;
         } catch (err) {
-          console.log("Credentials error");
+          console.log(err);
         }
         return null;
       },

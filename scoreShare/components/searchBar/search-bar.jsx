@@ -33,7 +33,6 @@ export const SearchBar = ({ isSearching }) => {
     timeOut = setTimeout(async () => {
       try {
         const data = await getAvailableTracks(value);
-        console.log(data);
         setExistingTracks(data);
         setLoading(false);
       } catch (error) {

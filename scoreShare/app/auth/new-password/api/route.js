@@ -1,6 +1,7 @@
 import { getPasswordResetTokenByToken } from "@/data/password-reset-token";
 import { getUserByEmail } from "@/data/user";
 import { db } from "@/lib/db";
+import { resolveError } from "@/lib/error-resolver";
 import { NewPasswordSchema } from "@/schemas";
 import bcrypt from "bcryptjs";
 
@@ -8,7 +9,7 @@ export const dynamic = "force-dynamic";
 
 export async function PUT(request) {
   const { newPassword, token } = await request.json();
-  console.log(newPassword.password, token);
+
   try {
     await NewPasswordSchema.validate(newPassword);
 
@@ -51,7 +52,7 @@ export async function PUT(request) {
       { status: 200 }
     );
   } catch (error) {
-    console.log(error);
+    resolveError(error);
     return Response.json({ message: "Something went wrong!" }, { status: 500 });
   }
 }
