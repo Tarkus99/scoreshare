@@ -240,7 +240,7 @@ export const TutorialBanner = () => {
               </p>
             </TutorialItem>
           </ol>
-          <Button variant="outline" className="float-right my-2" asChild>
+          <Button variant="outline" className="float-right my-2 rounded-full" asChild>
             <Link href="#tutorial-top">Back to top</Link>
           </Button>
         </AccordionContent>

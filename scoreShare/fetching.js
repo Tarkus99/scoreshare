@@ -18,10 +18,7 @@ const SPOTIFY_SEARCH = axios.create({
 });
 
 export const register = (values) =>
-  API.post("/auth/register/api", values).then((res) => res.data);
-
-export const loginWithCredentials = (values) =>
-  API.post("/auth/login/api", values).then((res) => res.data);
+  API.post("/api/user", values).then((res) => res.data);
 
 export const verifyUser = (token) =>
   API.put("/auth/new-verification/api", token).then((res) => res.data);

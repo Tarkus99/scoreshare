@@ -70,15 +70,19 @@ export const FilesAccordion = ({ files }) => {
         title={"Success"}
         variant={"success"}
         message={success}
-        className={" fixed bottom-4 right-4 animate-disappears w-fit"}
+        className={" fixed bottom-4 right-4 animate-alert-message-disappears w-fit z-50"}
       />
       <AlertMessage
         title={"Error"}
         variant={"destructive"}
         message={failed}
-        className={" fixed bottom-4 right-4 animate-disappears w-fit"}
+        className={" fixed bottom-4 right-4 animate-alert-message w-fit z-10"}
       />
-      {loading && <LoadingTriangles style={{position: "fixed", bottom: "1rem", right: "1rem"}} />}
+      {loading && (
+        <LoadingTriangles
+          style={{ position: "fixed", bottom: "1rem", right: "1rem" }}
+        />
+      )}
 
       <AlertDialog open={open}>
         <AlertDialogContent>
@@ -108,7 +112,7 @@ export const FilesAccordion = ({ files }) => {
           {Array.from(tracks).map((t, index) => {
             const name = t.split(":")[0];
             const id = t.split(":")[1];
-            const count = copyFiles.filter((f) =>f.trackId === id).length;
+            const count = copyFiles.filter((f) => f.trackId === id).length;
             return (
               <AccordionItem key={t} value={`item-${index + 1}`}>
                 <AccordionTrigger className="w-full font-semibold text-white">
@@ -141,7 +145,11 @@ export const FilesAccordion = ({ files }) => {
                               </small>
                             </div>
                             <div className="flex items-center justify-end pe-5 gap-x-2.5">
-                              <PopoverSheet label={<Button>Edit</Button>}>
+                              <PopoverSheet
+                                label={
+                                  <Button className="rounded-full">Edit</Button>
+                                }
+                              >
                                 <UpdateFileForm
                                   file={file}
                                   addFile={replaceFile}
@@ -150,7 +158,7 @@ export const FilesAccordion = ({ files }) => {
                               {isUniqueFileInTrack > 1 && (
                                 <Button
                                   variant="destructive"
-                                  className="drop-shadow-md"
+                                  className="rounded-full drop-shadow-md"
                                   onClick={() => {
                                     fileId.current = file.id;
                                     setOpen(true);

@@ -16,8 +16,10 @@ export const AlertMessage = ({
   if (!message) return null;
   return (
     <Alert variant={variant} className={className}>
-      {getIcon(variant)}
-      <AlertTitle>{title}</AlertTitle>
+      <AlertTitle className="flex items-center gap-x-2">
+        {getIcon(variant)}
+        {title}
+      </AlertTitle>
       <AlertDescription>
         <div className="flex justify-between">
           <p>{message}</p>
@@ -31,6 +33,6 @@ export const AlertMessage = ({
 function getIcon(variant) {
   if (variant === "destructive")
     return <ExclamationTriangleIcon className="w-4 h-4" />;
-  if (variant === "success") return <CheckCircledIcon className="w-4 h-4" />;
+  if (variant === "success") return <CheckCircledIcon className="w-4 h-4 " />;
   return null;
 }

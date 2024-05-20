@@ -88,7 +88,7 @@ module.exports = {
         },
         disappears: {
           from: { opacity: 100 },
-          to: { opacity: 0 },
+          to: { opacity: 0, display: "none !important" },
         },
         "full-rotate-forwards": {
           from: {
@@ -125,7 +125,10 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         comment: "appears 0.6s ease-in-out, my-bouncing .6s ease-in-out",
-        "alert-message": "appears 0.2s ease-in-out, my-bouncing .6s ease-in-out",
+        "alert-message":
+          "appears 0.2s ease-in-out, my-bouncing .6s ease-in-out",
+        "alert-message-disappears":
+          "appears 0.2s ease-in-out, my-bouncing .6s ease-in-out, disappears 1.4s linear 1.4s forwards",
         disappears:
           "form-error 0.6s ease-in-out, disappears 1.4s linear 1.4s forwards",
         rotate: "full-rotate-forwards 2s ease forwards",

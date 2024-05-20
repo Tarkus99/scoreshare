@@ -3,11 +3,6 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import { Button } from "../ui/button";
 
-import {
-  PiFileAudioThin,
-  PiFilePdfThin,
-  PiFileVideoThin,
-} from "react-icons/pi";
 import { TableRow } from "./table-row";
 import Image from "next/image";
 import TableSkeleton from "../skeletons/table-skeleton";
@@ -16,12 +11,20 @@ import { PopoverSheet } from "../misc/popover-sheet";
 import { FileTableFilters } from "./file-table-filters";
 import TimeAgo from "timeago-react";
 import { getFiles } from "@/actions/fileActions";
-import { Separator } from "@radix-ui/react-dropdown-menu";
+import { PaginationParent } from "./pagination-parent";
 
 const FileTable = ({ trackId, setCurrentFile }) => {
   const [files, setFiles] = useState([]);
   const [copyFiles, setCopyFiles] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(5);
+
+  const changePage = (value) => {
+    if ((files.length - 1) < (startIndex + value) || (startIndex + value) < 0) return;
+    setStartIndex(startIndex + value);
+    setEndIndex(endIndex + value);
+  };
 
   const fetchData = useCallback(
     (trackId) => {
@@ -58,7 +61,7 @@ const FileTable = ({ trackId, setCurrentFile }) => {
       >
         <PopoverSheet
           label={
-            <Button variant="outline" className="justify-self-end">
+            <Button variant="outline" className="rounded-full justify-self-end">
               Upload file
             </Button>
           }
@@ -67,6 +70,7 @@ const FileTable = ({ trackId, setCurrentFile }) => {
         </PopoverSheet>
       </FileTableFilters>
       {createTable(copyFiles)}
+      <PaginationParent currentPage={((startIndex*2)/10) + 1} changePage={changePage} />
     </div>
   );
   function createTable(files) {
@@ -92,6 +96,7 @@ const FileTable = ({ trackId, setCurrentFile }) => {
             </TableRow>
           ) : (
             files
+              .slice(startIndex, endIndex)
               .toSorted((a, b) => b.createdAt - a.createdAt)
               .map((f) => (
                 <TableRow
@@ -120,7 +125,7 @@ const FileTable = ({ trackId, setCurrentFile }) => {
                       />
                       <h1 className="hidden md:block">{f.user.name}</h1>
                     </div>
-                    <small className="flex-1 text-xs md:text-end text-muted">
+                    <small className="flex-1 text-xs md:text-end text-muted-foreground">
                       <TimeAgo datetime={f.uploadedAt} />
                     </small>
                   </div>

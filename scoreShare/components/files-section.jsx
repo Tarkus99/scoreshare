@@ -2,7 +2,11 @@ import { memo } from "react";
 
 import { FilesInfo } from "./files-info";
 import { cn } from "@/lib/utils";
-
+import { Manrope } from "next/font/google";
+const font = Manrope({
+  subsets: ["latin"],
+  weight: ["400"]
+})
 export const FilesByTrack = memo(async ({ id }) => {
   return (
     <section
@@ -12,7 +16,7 @@ export const FilesByTrack = memo(async ({ id }) => {
       <div className="w-full col-span-2">
         <div className="flex justify-between gap-2">
           <h1
-            className={cn(
+            className={cn(font.className,
               "text-2xl border-b md:text-3xl border-white !text-white text-shadow-white"
             )}
           >

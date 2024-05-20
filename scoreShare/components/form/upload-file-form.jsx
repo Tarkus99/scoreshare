@@ -1,5 +1,5 @@
 import { UploadFile } from "@/schemas";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
   Form,
@@ -23,10 +23,7 @@ import {
   MAX_FILE_SIZE,
   removeExtensionFromFileNameInForm,
 } from "@/lib/utils";
-import {
-  uploadFileAlongWithTrack,
-  uploadFileWithTransaction,
-} from "@/actions/fileActions";
+import { uploadFileWithTransaction } from "@/actions/fileActions";
 
 export const UploadFileForm = ({ trackId, addFile }) => {
   const [loading, setLoading] = useState(false);
@@ -171,7 +168,7 @@ export const UploadFileForm = ({ trackId, addFile }) => {
             </div>
             <LoadingButton
               loading={loading}
-              className="self-end "
+              className="self-end rounded-full"
               label="Upload file"
             />
           </div>
@@ -184,6 +181,7 @@ export const UploadFileForm = ({ trackId, addFile }) => {
         variant={"success"}
         message={success}
         loading={true}
+        className={" animate-alert-message-disappears"}
       />
     </div>
   );
