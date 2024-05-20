@@ -90,13 +90,45 @@ module.exports = {
           from: { opacity: 100 },
           to: { opacity: 0 },
         },
+        "full-rotate-forwards": {
+          from: {
+            transform: "rotate(0deg)",
+          },
+          to: {
+            transform: "rotate(360deg)",
+          },
+        },
+        "my-bouncing": {
+          "0%": {
+            opacity: 0,
+            transform: "translateY(100%)",
+          },
+          "50%": {
+            transform: "translateY(-20%)",
+          },
+          "70%": {
+            transform: "translateY(15%)",
+          },
+          "80%": {
+            transform: "translateY(-10%)",
+          },
+          "90%": {
+            transform: "translateY(5%)",
+          },
+          "100%": {
+            transform: "translateY(0%)",
+            opacity: 1,
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        comment: "appears 0.6s ease-in-out, bounce .3s ease-in-out",
-        alertMessage: "appears 0.6s ease-in-out, bounce .5s ease-in-out",
-        disappears: "form-error 0.6s ease-in-out, disappears 1.4s linear 1.4s forwards",
+        comment: "appears 0.6s ease-in-out, my-bouncing .6s ease-in-out",
+        "alert-message": "appears 0.2s ease-in-out, my-bouncing .6s ease-in-out",
+        disappears:
+          "form-error 0.6s ease-in-out, disappears 1.4s linear 1.4s forwards",
+        rotate: "full-rotate-forwards 2s ease forwards",
       },
     },
   },

@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import {
   Accordion,
   AccordionContent,
@@ -7,10 +6,10 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Image from "next/image";
-import { ArrowDownIcon } from "@radix-ui/react-icons";
 import { TutorialItem } from "./tutorial-item";
 import { Semibold } from "./semibold";
-import { Manrope } from "next/font/google";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
 export const TutorialBanner = () => {
   return (
@@ -21,7 +20,9 @@ export const TutorialBanner = () => {
     >
       <AccordionItem value="item-1">
         <AccordionTrigger className="px-10 decoration-white">
-          <h2 className="text-xl text-white">First time in here?</h2>
+          <h2 id="tutorial-top" className="text-xl text-white">
+            First time in here?
+          </h2>
         </AccordionTrigger>
         <AccordionContent className="px-5">
           <p className="w-full mb-2 text-center text-white text-pretty hyphens-auto">
@@ -181,9 +182,8 @@ export const TutorialBanner = () => {
             </TutorialItem>
             <TutorialItem>
               <p>
-                A modal window will appear. The
-                file will be displayed for a preview. You can download it by
-                clicking the{" "}
+                A modal window will appear. The file will be displayed for a
+                preview. You can download it by clicking the{" "}
                 <Semibold>
                   top button next to the file's owner username.
                 </Semibold>
@@ -233,10 +233,16 @@ export const TutorialBanner = () => {
                 </p>
               </p>
             </TutorialItem>
-             <TutorialItem>
-                <p>And that's all, I hope you got the main idea and find yourself confident on start using the application!</p>
-             </TutorialItem>
+            <TutorialItem>
+              <p>
+                And that's all, I hope you got the main idea and find yourself
+                confident on start using the application!
+              </p>
+            </TutorialItem>
           </ol>
+          <Button variant="outline" className="float-right my-2" asChild>
+            <Link href="#tutorial-top">Back to top</Link>
+          </Button>
         </AccordionContent>
       </AccordionItem>
     </Accordion>

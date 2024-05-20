@@ -5,6 +5,10 @@ export const resolveError = (error) => {
       message = "You've already uploaded a file with that name!";
       status = 400;
     }
+    if (error.meta?.modelName === "Track") {
+      message = "This track has been uploaded already!";
+      status = 400;
+    }
   } else if (error.code === "P2000") {
     message = error.message;
     status = 400;

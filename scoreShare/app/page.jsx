@@ -5,7 +5,12 @@ import { NavLogo } from "@/components/nav-logo";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { Manrope, Nanum_Gothic_Coding, Poppins, Roboto } from "next/font/google";
+import {
+  Manrope,
+  Nanum_Gothic_Coding,
+  Poppins,
+  Roboto,
+} from "next/font/google";
 import Image from "next/image";
 
 const font = Poppins({
@@ -68,7 +73,7 @@ export default function Home() {
               music
             </span>
           </h1>
-          <Separator/>
+          <Separator />
           <p
             className={cn(
               body.className,
@@ -99,7 +104,7 @@ export default function Home() {
             src="/logo.png"
             width={800}
             height={800}
-            className="w-[80%] mx-auto transition-all duration-500 hover:rotate-[360deg] aspect-square"
+            className="w-[80%] mx-auto transition-all duration-500 animate-rotate aspect-square"
           />
         </div>
       </section>
