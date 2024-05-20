@@ -6,12 +6,20 @@ import {
   authRoutes,
   publicRoutes,
 } from "@/routes";
+import { NextResponse } from "next/server";
 
 const { auth } = NextAuth(authConfig)
 
 export default auth(async (req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
+
+  if (
+    nextUrl.pathname === "/api/auth/signin" &&
+    nextUrl.search === "?error=OAuthCallbackError"
+  ) {
+    return NextResponse.redirect(new URL("/auth/login", req.url));
+  }
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
