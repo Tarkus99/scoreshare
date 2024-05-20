@@ -60,6 +60,8 @@ export const LoginForm = () => {
       showSocial
       backButtonHref={"/auth/register"}
       id={"login-form"}
+      loading={loading}
+      setLoading={setLoading}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>

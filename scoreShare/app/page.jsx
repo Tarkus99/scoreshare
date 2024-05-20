@@ -45,7 +45,7 @@ export default function Home() {
           <Button
             variant="outline"
             size="default"
-            className="mb-1 text-white bg-indigo-500 rounded-full "
+            className="mb-1 text-white bg-indigo-500 border-none rounded-full drop-shadow-lg"
           >
             Sign in
           </Button>

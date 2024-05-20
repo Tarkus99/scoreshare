@@ -5,8 +5,10 @@ export const ListedTrack = ({ track }) => {
   return (
     <>
       <div className="max-w-[60%] my-2 md:my-0">
-        <p className="w-full font-bold underline truncate">{track.name}</p>
-        <p className="w-full text-base break-words md:truncate overflow-ellipsis me-1">
+        <p className="w-full font-bold underline capitalize truncate">
+          {track.name}
+        </p>
+        <p className="w-full text-base capitalize break-words md:truncate overflow-ellipsis me-1">
           <small>
             <i>{track.album?.name || track.source}</i>
           </small>
