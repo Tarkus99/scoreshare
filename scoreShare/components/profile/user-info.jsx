@@ -17,7 +17,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Separator } from "../ui/separator";
 import { useUser } from "@/hooks/use-current-user";
-import { Nunito } from "next/font/google";
+import { Manrope } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { Avatar, AvatarFallback } from "../ui/avatar";
@@ -28,11 +28,10 @@ import { useSession } from "next-auth/react";
 import { FaUser } from "react-icons/fa6";
 import { useResponseMessages } from "@/hooks/use-response-messages";
 
-const font = Nunito({
+const font = Manrope({
   subsets: ["latin"],
   weight: ["400"],
 });
-
 export const UserInfo = ({ label }) => {
   const [loading, setLoading] = useState(false);
   const {setFailed, setSuccess, failed, success, resetMessages} = useResponseMessages()
@@ -70,8 +69,8 @@ export const UserInfo = ({ label }) => {
   };
   return (
     <Card className="w-full bg-transparent border-none rounded-sm shadow-sm h-min">
-      <CardHeader className="text-primary rounded-[2px]border-b">
-        <p className={cn( "text-2xl font-semibold text-center uppercase !text-white text-shadow-white")}>
+      <CardHeader className={"text-primary rounded-[2px] border-b"}>
+        <p className={cn( font.className, "text-2xl font-semibold text-center uppercase !text-white text-shadow-white")}>
           {label}
         </p>
       </CardHeader>

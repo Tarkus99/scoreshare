@@ -96,7 +96,11 @@ export const FileTableFilters = ({
                 color: "whitesmoke",
                 borderColor: "white",
               },
-              "& ..MuiInputLabel-standard": {
+              "& .MuiInputLabel-standard": {
+                color: "whitesmoke",
+                borderColor: "white",
+              },
+              "& .MuiInputLabel-root.Mui-focused": {
                 color: "whitesmoke",
                 borderColor: "white",
               },
