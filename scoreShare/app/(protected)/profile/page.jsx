@@ -1,15 +1,9 @@
+import { MyManrope } from "@/components/misc/manrope";
 import { ActivityTab } from "@/components/profile/activity-tab";
 import { ProfileTab } from "@/components/profile/profile-tab";
 import TableSkeleton from "@/components/skeletons/table-skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { cn } from "@/lib/utils";
-import { Manrope } from "next/font/google";
-
-import React, { Suspense } from "react";
-const font = Manrope({
-  subsets: ["latin"],
-  weight: ["400"],
-});
+import { Suspense } from "react";
 
 const ProfilePage = () => {
   return (
@@ -24,10 +18,10 @@ const ProfilePage = () => {
       <TabsContent
         value="activity"
         className="w-full p-4 rounded-sm shadow tab-content"
-        style={{position: "unset"}}
+        style={{ position: "unset" }}
       >
-        <h1 className={cn(font.className,"my-2 text-2xl font-semibold text-center uppercase !text-white text-shadow-white")}>
-          Files uploaded
+        <h1 className="my-2 text-2xl font-semibold text-center uppercase !text-white text-shadow-white">
+          <MyManrope>Files uploaded</MyManrope>
         </h1>
         <Suspense fallback={<TableSkeleton />}>
           <ActivityTab />

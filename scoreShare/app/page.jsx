@@ -7,7 +7,6 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import {
   Manrope,
-  Nanum_Gothic_Coding,
   Poppins,
   Roboto,
 } from "next/font/google";

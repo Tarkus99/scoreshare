@@ -9,7 +9,7 @@ const ProtectedLayout = ({ children }) => {
         height={1080}
         width={1920}
         alt="background"
-        className="fixed bottom-0 right-0 min-h-[100%] min-w-[100%] object-fill -z-10"
+        className="fixed bottom-0 right-0 min-h-[100%] min-w-[100%] object-cover -z-10"
       />
       <div className="flex flex-col w-full p-2 min-h-[100%] h-fit gap-y-5 justify-between ">
         <NavBar />

@@ -82,16 +82,6 @@ export const ResetForm = () => {
               loading={true}
             />
             <Button
-              onClick={(e) => {
-                document
-                  .querySelector("#logo-img")
-                  .classList.add("rotate-logo");
-                setTimeout(() => {
-                  document
-                    .querySelector("#logo-img")
-                    .classList.remove("rotate-logo");
-                }, 1000);
-              }}
               type="submit"
               className="w-full"
               disabled={loading}

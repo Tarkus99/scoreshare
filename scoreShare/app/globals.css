@@ -85,10 +85,6 @@
     font-size: calc(14px + 0.398vw);
     font-size: calc(16px + (24 - 16) * (100vw - 400px) / (1920 - 200));
   }
-  body {
-    @apply bg-background text-foreground;
-  }
-
 
   .search-bar input:focus-visible {
     outline: transparent;
@@ -100,16 +96,12 @@
     top: 50%;
   }
 
-  #card-background {
-    filter: contrast(100%) opacity(60%);
-  }
-
-  .form-message {
-    animation: form-error ease-in-out 0.6s forwards;
-  }
-
   .file-comments-parent {
     animation: file-comments-parent ease-in-out 0.6s forwards;
+  }
+
+  .filter-parent{
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(18,63,94,0.9) 5%, rgba(18,63,94,0.9) 95%, rgba(255,255,255,0) 100%);
   }
 
   ol{
@@ -124,6 +116,10 @@
 
   input[type="file"] {
     display: none;
+  }
+
+  input::placeholder, textarea::placeholder{
+    font-size: 1rem !important;
   }
 
   .loadingTrianglesOffset {
@@ -158,9 +154,6 @@
 
 }
 
-.rotate-logo {
-  animation: rotate-logo 0.7s forwards ease-in-out;
-}
 
 @keyframes file-comments-parent {
   from {
@@ -173,34 +166,3 @@
   }
 }
 
-@keyframes rotate-logo {
-  from {
-    transform: rotateY(0);
-  }
-  to {
-    transform: rotateY(360deg);
-  }
-}
-
-@keyframes form-error {
-  0% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  50% {
-    transform: translateY(-20%);
-  }
-  70% {
-    transform: translateY(15%);
-  }
-  80% {
-    transform: translateY(-10%);
-  }
-  90% {
-    transform: translateY(5%);
-  }
-  100% {
-    transform: translateY(0%);
-    opacity: 1;
-  }
-}

@@ -89,17 +89,7 @@ export const NewPasswordForm = () => {
               message={success}
               loading={true}
             />
-            <Button
-              onClick={(e) => {
-                document
-                  .querySelector("#logo-img")
-                  .classList.add("rotate-logo");
-                setTimeout(() => {
-                  document
-                    .querySelector("#logo-img")
-                    .classList.remove("rotate-logo");
-                }, 1000);
-              }}
+            <Button               
               type="submit"
               className="w-full"
               disabled={loading}

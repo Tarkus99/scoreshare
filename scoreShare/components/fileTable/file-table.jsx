@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { Button } from "../ui/button";
 
@@ -12,6 +12,7 @@ import { FileTableFilters } from "./file-table-filters";
 import TimeAgo from "timeago-react";
 import { getFiles } from "@/actions/fileActions";
 import { PaginationParent } from "./pagination-parent";
+import { useFiltersRef } from "@/hooks/filters-ref";
 
 const FileTable = ({ trackId, setCurrentFile }) => {
   const [files, setFiles] = useState([]);
@@ -19,9 +20,9 @@ const FileTable = ({ trackId, setCurrentFile }) => {
   const [loading, setLoading] = useState(true);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(5);
-
+  const filtersRef = useFiltersRef();
   const changePage = (value) => {
-    if ((files.length - 1) < (startIndex + value) || (startIndex + value) < 0) return;
+    if (files.length - 1 < startIndex + value || startIndex + value < 0) return;
     setStartIndex(startIndex + value);
     setEndIndex(endIndex + value);
   };
@@ -34,8 +35,7 @@ const FileTable = ({ trackId, setCurrentFile }) => {
           setFiles(data);
           setCopyFiles(data);
         })
-        .catch((error) => {
-        })
+        .catch((error) => {})
         .finally(() => setLoading(false));
     },
     [trackId]
@@ -57,6 +57,7 @@ const FileTable = ({ trackId, setCurrentFile }) => {
         originalFiles={files}
         copyFiles={copyFiles}
         setCopyFiles={setCopyFiles}
+        filtersRef={filtersRef}
       >
         <PopoverSheet
           label={
@@ -69,7 +70,10 @@ const FileTable = ({ trackId, setCurrentFile }) => {
         </PopoverSheet>
       </FileTableFilters>
       {createTable(copyFiles)}
-      <PaginationParent currentPage={((startIndex*2)/10) + 1} changePage={changePage} />
+      <PaginationParent
+        currentPage={(startIndex * 2) / 10 + 1}
+        changePage={changePage}
+      />
     </div>
   );
   function createTable(files) {
@@ -105,8 +109,8 @@ const FileTable = ({ trackId, setCurrentFile }) => {
                     setCurrentFile(f);
                   }}
                 >
-                  <div className="truncate text-ellipsis">
-                    <p className="items-center overflow-visible capitalize gap-x-1">
+                  <div className="w-full group">
+                    <p className="items-center w-full overflow-y-visible capitalize truncate transition-all group-hover:text-indigo-800 text-ellipsis gap-x-1">
                       {removeExtensionFromName(f.name)} {getType(f)}
                     </p>
                   </div>
