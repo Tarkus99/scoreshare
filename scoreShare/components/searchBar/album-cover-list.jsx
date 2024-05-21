@@ -3,14 +3,15 @@ import React from "react";
 
 export const AlbumCoverList = ({ image }) => {
   return (
-    <div className="relative w-[25%] md:w-[15%] aspect-square">
+    <div className="h-full max-h-32">
       <Image
         src={image}
         alt=""
-        width={200}
-        height={200}
-        className="w-full h-auto aspect-square album-cover-search drop-shadow-md opacity-90"
+        width={500}
+        height={500}
+        className="w-[8rem] max-h-28 aspect-square album-cover-search drop-shadow-md opacity-90"
       />
+      
     </div>
   );
 };

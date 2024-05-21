@@ -1,5 +1,10 @@
 "use server";
-import { supDeleteFile, supGetPublicUrl, supMoveFile, supUploadFile } from "@/lib/supabase";
+import {
+  supDeleteFile,
+  supGetPublicUrl,
+  supMoveFile,
+  supUploadFile,
+} from "@/lib/supabase";
 import {
   createFile,
   deleteFile,
@@ -12,14 +17,14 @@ import { resolveError } from "@/lib/error-resolver";
 import { currentUser } from "./server";
 import { db } from "@/lib/db";
 import { resolveFileName } from "@/lib/utils";
-import { getTrackById } from "@/data/track";
+import { getTrackByIdData } from "@/data/track";
 
 export const getFiles = async (id) => {
   try {
     const data = await getFilesByTrackId(id);
     return data;
   } catch (error) {
-    resolveError(error)
+    resolveError(error);
     return [];
   }
 };
@@ -34,11 +39,7 @@ export const getFilesByUser = async (id) => {
   }
 };
 
-export const uploadFileAlongWithTrack = async (
-  formData,
-  trackId,
-  conn
-) => {
+export const uploadFileAlongWithTrack = async (formData, trackId, conn) => {
   const user = await currentUser();
   const fileToInsert = Object.fromEntries(formData.entries());
   const name = resolveFileName(fileToInsert, user);
@@ -67,7 +68,7 @@ export const uploadFileAlongWithTrack = async (
 
 export const uploadFileWithTransaction = async (trackId, formData) => {
   try {
-    const existsTrack = await getTrackById(trackId);
+    const existsTrack = await getTrackByIdData(trackId);
     const user = await currentUser();
     const fileToInsert = Object.fromEntries(formData.entries());
     const name = resolveFileName(fileToInsert, user);
@@ -134,13 +135,13 @@ export const putFile = async (id, formData, oldFile) => {
           error.code = deleteInfo.error.statusCode;
           throw error;
         }
-      }else{
+      } else {
         const moveFileInfo = await supMoveFile(oldFile, name);
-         if (moveFileInfo.error) {
-           let error = new Error(moveFileInfo.error.message);
-           error.code = moveFileInfo.error.statusCode;
-           throw error;
-         }
+        if (moveFileInfo.error) {
+          let error = new Error(moveFileInfo.error.message);
+          error.code = moveFileInfo.error.statusCode;
+          throw error;
+        }
       }
     });
     return {

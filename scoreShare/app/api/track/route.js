@@ -1,6 +1,6 @@
 "use server";
 
-import { getTrackByQuery } from "@/data/track";
+import { getTrackByQueryData } from "@/data/track";
 import { DateTime } from "luxon";
 import { supGetPublicUrl, supUploadImage } from "@/lib/supabase";
 import { db } from "@/lib/db";
@@ -10,7 +10,7 @@ import { resolveError } from "@/lib/error-resolver";
 export async function GET(request) {
   const url = new URL(request.url);
   const query = url.searchParams.get("query");
-  const result = await getTrackByQuery(query);
+  const result = await getTrackByQueryData(query);
 
   return Response.json(result);
 }
@@ -28,7 +28,10 @@ export async function POST(request) {
         throw err;
       }
 
-      const publicUrl = await supGetPublicUrl("images", uploadImageInfo.data.path);
+      const publicUrl = await supGetPublicUrl(
+        "images",
+        uploadImageInfo.data.path
+      );
 
       finalImage = publicUrl;
     }
