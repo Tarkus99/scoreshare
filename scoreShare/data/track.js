@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 
-export const getTrackByQuery = async (query) => {
+export const getTrackByQueryData = async (query) => {
   const tracks = await db.track.findMany({
     where: {
       OR: [
@@ -23,8 +23,7 @@ export const getTrackByQuery = async (query) => {
   return tracks;
 };
 
-export const getTrackById = async (id) => {
-  
+export const getTrackByIdData = async (id) => {
   const track = await db.track.findUnique({
     where: {
       id: id,
@@ -35,4 +34,32 @@ export const getTrackById = async (id) => {
   });
 
   return track;
+};
+
+export const getPopularTracksData = async () => {
+  const result = db.track.findMany({
+    take: 10,
+    orderBy: {
+      files: {
+        _count: "desc",
+      },
+    },
+    include: {
+      artists: true,
+    },
+  });
+  return result;
+};
+
+export const getRecentTracksData = async () => {
+  const result = db.track.findMany({
+    take: 10,
+    orderBy: {
+      createdAt: "desc"
+    },
+    include: {
+      artists: true,
+    },
+  });
+  return result;
 };

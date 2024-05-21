@@ -1,4 +1,4 @@
-import { getTrackById } from "@/data/track";
+import { getTrackByIdData } from "@/data/track";
 import Image from "next/image";
 import { Label } from "./ui/label";
 import { RiSpotifyFill } from "react-icons/ri";
@@ -6,7 +6,7 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 
 export const TrackInfo = async ({ id }) => {
-  const trackInfo = await getTrackById(id);
+  const trackInfo = await getTrackByIdData(id);
   return (
     <section className="flex flex-wrap items-center justify-center h-auto p-1 rounded-lg bg-slate-100/70">
       {trackInfo && (
@@ -48,9 +48,7 @@ export const TrackInfo = async ({ id }) => {
                 ))}
               </p>
             </div>
-            <div
-              className="col-span-2 p-2 bg-white border rounded-lg shadow md:col-span-1 border-cyan-700 backdrop-blur bg-none"
-            >
+            <div className="col-span-2 p-2 bg-white border rounded-lg shadow md:col-span-1 border-cyan-700 backdrop-blur bg-none">
               <Label className="font-bold uppercase text-primary/80 border-b-[1px] border-mypurple">
                 Date
               </Label>

@@ -649,14 +649,14 @@ export const CreateTrackForm = () => {
               title={"Error"}
               variant={"destructive"}
               message={failed}
-              className={" fixed bottom-4 right-4 w-fit"}
+              className={" fixed bottom-4 animate-alert-message right-4 w-fit"}
             />
             <AlertMessage
               title={"Succes!"}
               variant={"success"}
               message={success}
               loading={true}
-              className={" fixed bottom-4 animate-disappears right-4 w-fit"}
+              className={" fixed bottom-4 animate-alert-message-disappears right-4 w-fit"}
             />
             <LoadingButton
               className="w-full rounded-full"
