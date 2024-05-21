@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Label } from "./ui/label";
 import { RiSpotifyFill } from "react-icons/ri";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
 export const TrackInfo = async ({ id }) => {
   const trackInfo = await getTrackById(id);
@@ -21,32 +22,35 @@ export const TrackInfo = async ({ id }) => {
             />
           </div>
           <div className="grid w-full grid-flow-row-dense grid-cols-2 gap-2 p-4 text-center md:grid-cols-3 text-primary">
-            <div className="p-2 bg-white border rounded-lg shadow border-cyan-700 backdrop-blur bg-none">
+            <div className="col-span-2 p-2 bg-white border rounded-lg shadow md:col-span-1 border-cyan-700 backdrop-blur bg-none">
               <Label className="font-bold uppercase text-primary/80 border-b-[1px] border-mypurple">
                 Title
               </Label>
               <p className="capitalize ">{trackInfo.name}</p>
             </div>
-            <div className="p-2 bg-white border rounded-lg shadow border-cyan-700 backdrop-blur bg-none">
+            <div className="col-span-2 p-2 bg-white border rounded-lg shadow md:col-span-1 border-cyan-700 backdrop-blur bg-none">
               <Label className="font-bold uppercase text-primary/80 border-b-[1px] border-mypurple">
                 Source
               </Label>
               <p className="capitalize ">{trackInfo.source}</p>
             </div>
-            <div className="p-2 bg-white border rounded-lg shadow border-cyan-700 backdrop-blur bg-none">
+            <div className="col-span-2 p-2 bg-white border rounded-lg shadow md:col-span-1 border-cyan-700 backdrop-blur bg-none">
               <Label className="flex items-center justify-center font-bold uppercase text-primary/80 gap-x-2">
                 <span className=" border-b-[1px] border-mypurple">Artists</span>{" "}
                 <RiSpotifyFill color="green" />
               </Label>
-              <p className="flex flex-wrap justify-center capitalize">
-                {trackInfo.artists.map((artist) => (
-                  <Button variant="link" asChild>
-                    <a href={artist.link}>{artist.name}</a>
-                  </Button>
+              <p className="flex flex-wrap justify-center capitalize ">
+                {trackInfo.artists.map((artist, index) => (
+                  <Link className=" text-balance" href={artist.link}>
+                    {artist.name}
+                    {!!trackInfo.artists[index + 1] && ", "}
+                  </Link>
                 ))}
               </p>
             </div>
-            <div className="p-2 bg-white border rounded-lg shadow border-cyan-700 backdrop-blur bg-none">
+            <div
+              className="col-span-2 p-2 bg-white border rounded-lg shadow md:col-span-1 border-cyan-700 backdrop-blur bg-none"
+            >
               <Label className="font-bold uppercase text-primary/80 border-b-[1px] border-mypurple">
                 Date
               </Label>

@@ -12,14 +12,8 @@ import { Social } from "./social";
 import { BackButton } from "./back-button";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 import { LoadingTriangles } from "../misc/loading-triangles";
-import { Manrope } from "next/font/google";
-
-const font = Manrope({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"]
-})
+import { MyManrope } from "../misc/manrope";
 
 export const CardWrapper = ({
   headerLabel,
@@ -53,10 +47,8 @@ export const CardWrapper = ({
             )}
           </div>
         </CardTitle>
-        <CardDescription
-          className={cn(font.className,"text-2xl antialiased text-primary/85 font-semibold")}
-        >
-          {headerLabel}
+        <CardDescription className="text-2xl antialiased font-semibold text-primary/85">
+          <MyManrope>{headerLabel}</MyManrope>
         </CardDescription>
       </CardHeader>
       <CardContent className="pb-2">{children}</CardContent>

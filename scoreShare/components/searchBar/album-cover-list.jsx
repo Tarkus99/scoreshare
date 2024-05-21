@@ -3,7 +3,7 @@ import React from "react";
 
 export const AlbumCoverList = ({ image }) => {
   return (
-    <div className="relative w-[15%] aspect-square">
+    <div className="relative w-[25%] md:w-[15%] aspect-square">
       <Image
         src={image}
         alt=""

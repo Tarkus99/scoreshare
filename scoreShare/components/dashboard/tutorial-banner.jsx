@@ -20,17 +20,17 @@ export const TutorialBanner = () => {
     >
       <AccordionItem value="item-1">
         <AccordionTrigger className="px-10 decoration-white">
-          <h2 id="tutorial-top" className="text-xl text-white">
+          <h2 className="text-xl text-white">
             First time in here?
           </h2>
         </AccordionTrigger>
-        <AccordionContent className="px-5">
+        <AccordionContent className="px-1 md:px-5">
           <p className="w-full mb-2 text-center text-white text-pretty hyphens-auto">
             So you just have landed in here? Don't worry, we will explain how
             this web works and how you can use it. It's easy, but just in case,
             here are some tips that migth help you:
           </p>
-          <ol type="1" className="space-y-2 text-white ms-8">
+          <ol type="1" className="space-y-2 text-white md:ms-8">
             <TutorialItem>
               <p>
                 You're a great musician and you're looking for an arrangement of
@@ -43,7 +43,7 @@ export const TutorialBanner = () => {
                 width={400}
                 height={400}
                 src={"/tutorial/searchbar.png"}
-                className="my-2 rounded drop-shadow-lg ms-12"
+                className="my-2 rounded drop-shadow-lg md:ms-12"
               />
               <p>
                 If you cannot find the track, probably it hasn't been uploaded.
@@ -63,7 +63,7 @@ export const TutorialBanner = () => {
                 (wheter it's tracked by Spotify or not).
               </p>
               <ul className="!list-disc ">
-                <li className="ms-12">
+                <li className="ms-6 md:ms-12">
                   <div>
                     <p>
                       Find the track in Spotify by typing it on the search bar.
@@ -77,11 +77,11 @@ export const TutorialBanner = () => {
                       width={600}
                       height={600}
                       src={"/tutorial/spoty_searchbar.png"}
-                      className="my-2 rounded ms-12 drop-shadow-lg"
+                      className="my-2 rounded md:ms-12 drop-shadow-lg"
                     />
                   </div>
                 </li>
-                <li className="ms-12">
+                <li className="ms-6 md:ms-12">
                   <div>
                     <p>
                       If the track you're thinking of is not tracked by Spotify,
@@ -116,11 +116,11 @@ export const TutorialBanner = () => {
                       width={600}
                       height={600}
                       src={"/tutorial/fields.png"}
-                      className="my-2 rounded ms-12 drop-shadow-lg"
+                      className="my-2 rounded md:ms-12 drop-shadow-lg"
                     />
                   </div>
                 </li>
-                <li className="ms-12">
+                <li className="ms-6 md:ms-12">
                   <div>
                     <p>
                       Then you are able to choose the key of the track and the
@@ -133,11 +133,11 @@ export const TutorialBanner = () => {
                       width={400}
                       height={400}
                       src={"/tutorial/fields2.png"}
-                      className="my-2 rounded ms-12 drop-shadow-lg"
+                      className="my-2 rounded md:ms-12 drop-shadow-lg"
                     />
                   </div>
                 </li>
-                <li className="ms-12">
+                <li className="ms-6 md:ms-12">
                   <div>
                     <p>
                       Last but not least, at the moment of create a new track,
@@ -153,7 +153,7 @@ export const TutorialBanner = () => {
                       width={600}
                       height={600}
                       src={"/tutorial/filemandatory.png"}
-                      className="my-2 rounded ms-12 drop-shadow-lg"
+                      className="my-2 rounded md:ms-12 drop-shadow-lg"
                     />
                   </div>
                 </li>
@@ -173,7 +173,7 @@ export const TutorialBanner = () => {
                 width={600}
                 height={600}
                 src={"/tutorial/filestable.png"}
-                className="my-2 rounded drop-shadow-lg ms-12"
+                className="my-2 rounded drop-shadow-lg md:ms-12"
               />
               <p>
                 Let's try by
@@ -193,7 +193,7 @@ export const TutorialBanner = () => {
                 width={700}
                 height={700}
                 src={"/tutorial/fileviewer.png"}
-                className="my-2 rounded drop-shadow-lg ms-12"
+                className="my-2 rounded drop-shadow-lg md:ms-12"
               />
               <p>
                 Under the file preview a list of commentaries concerning the
@@ -213,7 +213,7 @@ export const TutorialBanner = () => {
                 width={300}
                 height={300}
                 src={"/tutorial/avatra.png"}
-                className="my-2 rounded drop-shadow-lg ms-12"
+                className="my-2 rounded drop-shadow-lg md:ms-12"
               />
               <p>
                 In the <Semibold>activity</Semibold> tab you'll find all the
@@ -224,7 +224,7 @@ export const TutorialBanner = () => {
                   width={600}
                   height={600}
                   src={"/tutorial/activitytab.png"}
-                  className="my-2 rounded drop-shadow-lg ms-12"
+                  className="my-2 rounded drop-shadow-lg md:ms-12"
                 />
                 <p>
                   <Semibold>Quick reminder:</Semibold> in order to avoid tracks
@@ -240,7 +240,11 @@ export const TutorialBanner = () => {
               </p>
             </TutorialItem>
           </ol>
-          <Button variant="outline" className="float-right my-2 rounded-full" asChild>
+          <Button
+            variant="outline"
+            className="float-right my-2 rounded-full"
+            asChild
+          >
             <Link href="#tutorial-top">Back to top</Link>
           </Button>
         </AccordionContent>

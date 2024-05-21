@@ -24,7 +24,7 @@ export const getTrackByQuery = async (query) => {
 };
 
 export const getTrackById = async (id) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  
   const track = await db.track.findUnique({
     where: {
       id: id,
