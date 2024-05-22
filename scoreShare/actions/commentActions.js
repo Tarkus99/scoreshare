@@ -2,15 +2,15 @@
 
 import { auth } from "@/auth";
 import {
-  deleteComment,
-  getCommentsByFileId,
-  insertComment,
-  updateComment,
+  deleteCommentData,
+  getCommentsByFileIdData,
+  insertCommentData,
+  updateCommentData,
 } from "@/data/commentData";
 import { CREATED, FAILED, OK, hasForbiddenContent } from "@/lib/utils";
 
 export const getComments = async (fileId) => {
-  const data = await getCommentsByFileId(fileId);
+  const data = await getCommentsByFileIdData(fileId);
   return data;
 };
 
@@ -30,17 +30,16 @@ export const addComment = async (formData) => {
   let result;
   let status;
 
-  
+  if (hasForbiddenContent(content))
+    throw new Error("It is not allowed to insert inapropiate content!");
   try {
-    if (hasForbiddenContent(content))
-      throw new Error("It is not allowed to insert inapropiate content!");
     if (id) {
       //update
-      result = await updateComment(id, content);
+      result = await updateCommentData(id, content);
       status = OK;
     } else {
       //create
-      result = await insertComment(comment);
+      result = await insertCommentData(comment);
       status = CREATED;
     }
 
@@ -58,7 +57,7 @@ export const addComment = async (formData) => {
 
 export const removeComment = async (id) => {
   try {
-    const result = await deleteComment(id);
+    const result = await deleteCommentData(id);
     return {
       status: OK,
       id: result.id,

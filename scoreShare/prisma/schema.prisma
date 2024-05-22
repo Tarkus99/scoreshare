@@ -96,6 +96,7 @@ model File {
   uploadedAt DateTime  @default(now())
   modifiedAt DateTime  @default(now())
   comments   Comment[]
+
   @@unique([userId, name, instrument])
 }
 
@@ -111,6 +112,7 @@ model Comment {
   fileId    String
   votes     VoteInComment[]
   createdAt DateTime        @default(now())
+  updatedAt DateTime        @default(now())
 }
 
 model VoteInComment {

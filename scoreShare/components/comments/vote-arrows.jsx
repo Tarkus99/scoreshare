@@ -9,8 +9,9 @@ import {
 } from "react-icons/ai";
 
 export const VoteArrows = ({ info }) => {
-  const [rating_, setRating] = useState(info.rating);
-  const [total_, setTotal] = useState(info.totalVotes);
+  console.log(info);
+  const [rating_, setRating] = useState(info.rating || 0);
+  const [total_, setTotal] = useState(info.totalVotes || 0);
   const [hasUserVoted, setHasUserVoted] = useState(info.hasUserVoted);
   const [isLike, setIsLike] = useState(hasUserVoted?.vote === 1);
   const [isDislike, setIsDislike] = useState(hasUserVoted?.vote === -1);

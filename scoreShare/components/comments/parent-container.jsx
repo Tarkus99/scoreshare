@@ -10,7 +10,7 @@ import { Textarea } from "../ui/textarea";
 import { SubmitButton } from "../misc/submit-button";
 import Image from "next/image";
 import { useUser } from "@/hooks/use-current-user";
-import { OK, is2xx } from "@/lib/utils";
+import { CREATED, OK, is2xx } from "@/lib/utils";
 
 export const ParentCommentContainer = memo(({ file }) => {
   const [error, setError] = useState(null);
@@ -35,7 +35,7 @@ export const ParentCommentContainer = memo(({ file }) => {
 
     if (is2xx(result.status)) {
       let newComments;
-      if (result.status === OK) {
+      if (result.status === CREATED) {
         newComments = [...comments, result.data];
       } else {
         newComments = comments.filter(

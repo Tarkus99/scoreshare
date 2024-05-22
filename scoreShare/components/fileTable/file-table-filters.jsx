@@ -50,7 +50,7 @@ export const FileTableFilters =({
   return (
     <div className="flex flex-wrap items-end justify-end w-full gap-4 p-2">
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetTrigger onClick={() => setOpen(true)}>
+        <SheetTrigger asChild onClick={() => setOpen(true)}>
           <Button variant="outline">Filters</Button>
         </SheetTrigger>
         <SheetContent className="!p-0 flex flex-col justify-center h-full !bg-transparent backdrop-blur-sm">

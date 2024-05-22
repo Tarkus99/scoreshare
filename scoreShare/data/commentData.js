@@ -1,7 +1,7 @@
 import { currentUser } from "@/actions/server";
 import { db } from "@/lib/db";
 
-export const getCommentsByFileId = async (fileId) => {
+export const getCommentsByFileIdData = async (fileId) => {
   const user = await currentUser();
   const prisma = db.$extends({
     result: {
@@ -28,7 +28,6 @@ export const getCommentsByFileId = async (fileId) => {
     },
   });
   const result = await prisma.comment.findMany({
-
     where: {
       fileId: fileId,
     },
@@ -46,7 +45,7 @@ export const getCommentsByFileId = async (fileId) => {
   return result;
 };
 
-export const insertComment = async (comment) => {
+export const insertCommentData = async (comment) => {
   const result = await db.comment.create({
     data: comment,
     include: {
@@ -61,13 +60,14 @@ export const insertComment = async (comment) => {
   return result;
 };
 
-export const updateComment = async (id, content) => {
+export const updateCommentData = async (id, content) => {
   const result = await db.comment.update({
     where: {
       id: id,
     },
-    update: {
+    data: {
       content: content,
+      updatedAt: new Date()
     },
     include: {
       user: {
@@ -81,7 +81,7 @@ export const updateComment = async (id, content) => {
   return result;
 };
 
-export const deleteComment = async (id) => {
+export const deleteCommentData = async (id) => {
   const result = await db.comment.delete({
     where: {
       id: id,

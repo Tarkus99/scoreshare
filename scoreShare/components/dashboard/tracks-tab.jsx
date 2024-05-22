@@ -30,7 +30,7 @@ export const FeaturedTracks = () => {
             className="flex gap-1 data-[state=active]:text-xl transition-all"
           >
             <MyManrope>NEW TRACKS</MyManrope>
-            <CountdownTimerIcon color="orange" height={25} width={25} />
+            <CountdownTimerIcon color="rgb(3,165,224)" height={25} width={25} />
           </TabsTrigger>
         </TabsList>
         <TabsContent value="popular" className="w-full">

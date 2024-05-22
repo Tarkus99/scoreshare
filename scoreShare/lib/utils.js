@@ -10,7 +10,7 @@ export const CREATED = 201;
 export const FAILED = 400;
 
 export const is2xx = (value) => {
-  return value < 400;
+  return value < 300 && value >= 200;
 };
 
 export const INVALID_FILENAME_CHARACTERS = [

@@ -76,7 +76,6 @@ export const RegisterForm = () => {
                   <FormControl>
                     <Input
                       {...field}
-                      className="text-white"
                       disabled={loading}
                       placeholder="John Doe"
                       type="text"
