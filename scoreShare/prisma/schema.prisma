@@ -34,8 +34,8 @@ model Account {
 
 model User {
   id            String          @id @default(cuid())
-  name          String?
-  email         String?         @unique
+  name          String
+  email         String         @unique
   emailVerified DateTime?
   password      String?
   role          String          @default("USER")
@@ -124,4 +124,5 @@ model VoteInComment {
   vote      Int
   votedAt   DateTime @default(now())
   updatedAt DateTime @default(now())
+  @@unique([userId, commentId])
 }
