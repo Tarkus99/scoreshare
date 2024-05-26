@@ -149,10 +149,15 @@ function getExtension(file) {
 }
 
 export function hasForbiddenContent(value) {
-  let exists;
+  let exists = false;
+  let i = 0;
   const toUpperCase = value.toUpperCase();
-  FORBIDDEN_CONTENT.forEach((word) => {
-    if (toUpperCase.includes(word)) exists = true;
-  });
+  const forbiddenContentLength = FORBIDDEN_CONTENT.length;
+  
+  while (!exists && i < forbiddenContentLength) {
+    const word = FORBIDDEN_CONTENT[i++];
+    exists = toUpperCase.includes(word);
+  }
+
   return exists;
 }

@@ -122,7 +122,7 @@ export const ParentCommentContainer = memo(({ file }) => {
             />
             <SubmitButton />
           </form>
-          {error && <p className="text-sm text-destructive">{error}</p>}
+          {error && <p className="my-2 text-sm text-destructive">{error}</p>}
         </div>
         {comments.length > 0 &&
           getRootComments()

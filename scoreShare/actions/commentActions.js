@@ -7,6 +7,7 @@ import {
   insertCommentData,
   updateCommentData,
 } from "@/data/commentData";
+import { resolveError } from "@/lib/error-resolver";
 import { CREATED, FAILED, OK, hasForbiddenContent } from "@/lib/utils";
 
 export const getComments = async (fileId) => {
@@ -34,11 +35,9 @@ export const addComment = async (formData) => {
     throw new Error("It is not allowed to insert inapropiate content!");
   try {
     if (id) {
-      //update
       result = await updateCommentData(id, content);
       status = OK;
     } else {
-      //create
       result = await insertCommentData(comment);
       status = CREATED;
     }
@@ -48,9 +47,10 @@ export const addComment = async (formData) => {
       data: result,
     };
   } catch (error) {
+    const [status, message] = resolveError(error);
     return {
-      status: FAILED,
-      message: error.message,
+      status: status,
+      message: message,
     };
   }
 };

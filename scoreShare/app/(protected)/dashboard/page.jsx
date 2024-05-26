@@ -3,9 +3,7 @@ import React from 'react'
 
 const Dashboard = () => {
   return (
-    <DashboardParent>
-      
-    </DashboardParent>
+    <DashboardParent/>
   )
 }
 
