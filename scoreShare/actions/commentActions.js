@@ -31,9 +31,9 @@ export const addComment = async (formData) => {
   let result;
   let status;
 
-  if (hasForbiddenContent(content))
-    throw new Error("It is not allowed to insert inapropiate content!");
   try {
+    if (hasForbiddenContent(content))
+      throw new Error("It is not allowed to insert inapropiate content!");
     if (id) {
       result = await updateCommentData(id, content);
       status = OK;

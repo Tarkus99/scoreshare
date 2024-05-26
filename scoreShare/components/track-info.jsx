@@ -6,7 +6,9 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 
 export const TrackInfo = async ({ id }) => {
-  const trackInfo = await getTrackByIdData(id);
+
+  const trackInfo = await getTrackByIdData(id); //acceso directo a datos
+  
   return (
     <section className="flex flex-wrap items-center justify-center h-auto p-1 rounded-lg bg-slate-100/70">
       {trackInfo && (

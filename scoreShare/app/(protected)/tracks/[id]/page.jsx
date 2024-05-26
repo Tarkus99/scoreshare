@@ -10,13 +10,14 @@ const Track = async ({ params }) => {
   if (!track) return notFound();
   return (
     <div className="flex flex-col w-full p-2 space-y-2 rounded shadow-2xl sm:w-11/12 md:w-10/12 xl:w-4/5 backdrop-blur-sm">
+      
       <Suspense fallback={<TrackSkeleton />}>
         <TrackInfo id={params.id} />
       </Suspense>
       <FilesByTrack id={params.id} />
+      
     </div>
   );
 };
 
 export default Track;
-/* (track.name + " " + track.source).split(" ").join("-").toLocaleLowerCase()} */
