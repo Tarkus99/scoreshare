@@ -12,16 +12,19 @@ import { InputSearchBar } from "./input-search-bar";
 import { FaClosedCaptioning } from "react-icons/fa6";
 import { FcDeleteRow } from "react-icons/fc";
 import { LoadingAndClearButtons } from "./loading-clear-buttons";
+import { cn } from "@/lib/utils";
 
 let timeOut;
 export const SearchBarSpotify = (props) => {
   const [existingTracks, setExistingTracks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [focus, setFocus] = useState(false);
+  const [error, setError] = useState(null);
   const inputRef = useRef();
 
   const searchTracks = async (query) => {
     try {
+      setError(null);
       const data = await searchTracksInSpotify(
         query,
         localStorage.getItem("spotify_access_token")
@@ -29,12 +32,19 @@ export const SearchBarSpotify = (props) => {
       return data.tracks.items;
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        const token = await getAccessTokenSpotify();
-        localStorage.setItem(
-          "spotify_access_token",
-          token.access_token.toString()
-        );
-        return searchTracks(query);
+        try {
+          const token = await getAccessTokenSpotify();
+          localStorage.setItem(
+            "spotify_access_token",
+            token.access_token.toString()
+          );
+          return searchTracks(query);
+        } catch (error) {
+          if (error.response.status === 400)
+            setError("One of the keys is invalid...");
+          else setError(error.response.data.error);
+          return [];
+        }
       } else if (error.response) {
         return [];
       }
@@ -104,11 +114,19 @@ export const SearchBarSpotify = (props) => {
           inputRef.current.value = "";
         }}
       />
+
+      {error && (
+        <p className="absolute top-[100%] z-50 text-sm text-destructive">
+          {error}
+        </p>
+      )}
+
       {focus && (
         <div
-          className={
-            "max-h-[20rem] min-h-[5rem] opacity-[100%] absolute -z-10 w-[110%] left-[50%] -translate-x-[50%] -top-2/4  space-y-[1px] bg-indigo-100 shadow rounded-2xl text-sm overflow-y-scroll snap-y transition-all border border-indigo-200"
-          }
+          className={cn(
+            error ? "bg-red-200" : "bg-indigo-100",
+            "max-h-[20rem] min-h-[5rem] opacity-[100%] absolute -z-10 w-[110%] left-[50%] -translate-x-[50%] -top-2/4  space-y-[1px] shadow rounded-2xl text-sm overflow-y-scroll snap-y transition-all border border-indigo-200"
+          )}
         >
           {existingTracks.length > 0 &&
             existingTracks.map((track) => (
