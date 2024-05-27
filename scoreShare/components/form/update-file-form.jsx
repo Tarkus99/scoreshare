@@ -25,7 +25,7 @@ import {
 } from "@/lib/utils";
 import { putFile } from "@/actions/fileActions";
 
-export const UpdateFileForm = ({ file, addFile }) => {
+export const UpdateFileForm = ({ file }) => {
   const [loading, setLoading] = useState(false);
   const { success, failed, setFailed, setSuccess, resetMessages } =
     useResponseMessages();
@@ -47,12 +47,9 @@ export const UpdateFileForm = ({ file, addFile }) => {
     formData.append("instrument", values.instrument);
 
     const data = await putFile(file.id, formData, file.url);
-    if (data.success) {
-      setSuccess(data.message);
-      addFile(data.payload);
-    } else {
-      setFailed(data.message);
-    }
+    if (data.success) setSuccess(data.message);
+    else setFailed(data.message);
+
     setLoading(false);
   };
 

@@ -29,39 +29,28 @@ export const FilesAccordion = ({ files }) => {
   const [loading, setLoading] = useState(false);
   const { setFailed, setSuccess, failed, success, resetMessages } =
     useResponseMessages();
-  const [copyFiles, setCopyFiles] = useState(files);
-
-
-  const getTracksInFiles = useCallback(()=>{
-    return new Set(
-    copyFiles.map((file) => {
-      return file.track.name + ":" + file.track.id;
-    })
-  );
-  }, [copyFiles])
-
   const [open, setOpen] = useState(false);
   const fileId = useRef();
 
-  const tracks = getTracksInFiles();
+  const getTracksInFiles = useCallback(() => {
+    return new Set(
+      files.map((file) => {
+        return file.track.name + ":" + file.track.id;
+      })
+    );
+  }, [files]);
 
-  const replaceFile = (file) => {
-    const filtered = copyFiles.filter((f) => f.id !== file.id);
-    setCopyFiles([file, ...filtered]);
-  };
+  const tracks = getTracksInFiles();
 
   const handleDelete = async () => {
     setLoading(true);
     resetMessages();
     const response = await deleteFileById(fileId.current);
-    if (response.success) {
-      setOpen(false);
-      setSuccess(response.message);
-      setCopyFiles(copyFiles.filter((f) => f.id !== response.payload.id));
-    } else {
-      setFailed(response.message);
-    }
-    setLoading(failed);
+
+    if (response.success) setSuccess(response.message);
+    else setFailed(response.message);
+    setOpen(false);
+    setLoading(false);
   };
 
   return (
@@ -70,7 +59,9 @@ export const FilesAccordion = ({ files }) => {
         title={"Success"}
         variant={"success"}
         message={success}
-        className={" fixed bottom-4 right-4 animate-alert-message-disappears w-fit z-50"}
+        className={
+          " fixed bottom-4 right-4 animate-alert-message-disappears w-fit z-50"
+        }
       />
       <AlertMessage
         title={"Error"}
@@ -112,7 +103,7 @@ export const FilesAccordion = ({ files }) => {
           {Array.from(tracks).map((t, index) => {
             const name = t.split(":")[0];
             const id = t.split(":")[1];
-            const count = copyFiles.filter((f) => f.trackId === id).length;
+            const count = files.filter((f) => f.trackId === id).length;
             return (
               <AccordionItem key={t} value={`item-${index + 1}`}>
                 <AccordionTrigger className="w-full font-semibold text-white">
@@ -125,12 +116,12 @@ export const FilesAccordion = ({ files }) => {
                   </p>
                 </AccordionTrigger>
                 <AccordionContent className="relative space-y-1">
-                  {copyFiles
+                  {files
                     .filter((file) => file.trackId === id)
                     .map((file) => {
                       const isUniqueFileInTrack = file.track._count.files;
                       return (
-                        <div key={file.id}>
+                        <div key={file.id + file.name + file.instrument}>
                           <div className="flex items-end justify-between py-3 rounded text-primary/90 ps-3 bg-slate-50">
                             <div>
                               <p className="flex items-center font-semibold capitalize">
@@ -152,7 +143,7 @@ export const FilesAccordion = ({ files }) => {
                               >
                                 <UpdateFileForm
                                   file={file}
-                                  addFile={replaceFile}
+                                  /* addFile={replaceFile} */
                                 />
                               </PopoverSheet>
                               {isUniqueFileInTrack > 1 && (

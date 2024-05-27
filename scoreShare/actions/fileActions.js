@@ -33,6 +33,7 @@ export const getFilesByTrackId = async (id) => {
 export const getFilesByUser = async (id) => {
   try {
     const data = await getFilesByUserId(id);
+
     return data;
   } catch (error) {
     resolveError(error);
@@ -59,6 +60,9 @@ export const uploadFileAlongWithTrack = async (formData, trackId, conn) => {
     err.supabaseError = true;
     throw err;
   }
+
+  revalidatePath("/(protected)/track/[id]", "page")
+    revalidatePath("/(protected)/profile/", "page")
 
   return {
     success: true,
@@ -96,6 +100,7 @@ export const uploadFileWithTransaction = async (trackId, formData) => {
       payload: result,
     }; */
     revalidatePath("/(protected)/track/[id]", "page")
+    revalidatePath("/(protected)/profile/", "page")
   } catch (error) {
     const [status, message] = resolveError(error);
     return {
@@ -146,6 +151,7 @@ export const putFile = async (id, formData, oldFile) => {
         }
       }
     });
+    revalidatePath("/(protected)/profile/", "page")
     return {
       success: true,
       message: "File has been updated successfully!",
@@ -173,6 +179,8 @@ export const deleteFileById = async (id) => {
         throw err;
       }
     });
+    revalidatePath("/(protected)/track/[id]", "page")
+    revalidatePath("/(protected)/profile/", "page")
     return {
       success: true,
       message: "File has been deleted successfully!",
