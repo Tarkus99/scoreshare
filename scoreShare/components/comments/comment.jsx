@@ -19,10 +19,10 @@ export const Comment = ({
   return (
     <div>
       <div className="flex flex-wrap p-4 text-sm bg-white rounded-sm shadow-md animate-comment gap-x-4">
-        <VoteArrows info={info}/>
-        <div className="flex-1 space-y-2">
-          <div className="flex justify-between">
-            <div className="flex items-center basis-11/12 gap-x-2">
+        <VoteArrows info={info} />
+        <div className="flex-1 flex-col space-y-2">
+          
+            <div className="flex items-start basis-11/12 gap-x-2">
               <Image
                 alt=""
                 width={100}
@@ -30,54 +30,22 @@ export const Comment = ({
                 className="w-4 rounded-full"
                 src={info.user.image || "/defaultUser.png"}
               />
-              <h1 className="font-bold text-sm">{info.user.name}</h1>
-              <p className="text-muted-foreground">
-                <TimeAgo datetime={info.createdAt} />
-              </p>
+              <div className="flex flex-col ms:flex-row w-full">
+                <h1 className="font-bold text-xs">{info.user.name}</h1>
+                <p className="hidden md:block self-end text-muted-foreground text-xs">
+                  <TimeAgo datetime={info.createdAt} />
+                </p>
+              </div>
             </div>
-            <div className="flex items-center">
-              <button
-                className="flex items-center gap-x-2"
-                onClick={() => {
-                  setFocus();
-                  setParentComment(info.id);
-                }}
-              >
-                <FaReply color="rgb(79 70 229)" />
-                <span>Reply</span>
-              </button>
-              {currentUser.id === info.userId && (
-                <>
-                  <Separator orientation="vertical" className="mx-2" />
-                  <button
-                    className="flex items-center w-min gap-x-2"
-                    onClick={() => {
-                      setFocus(info.content);
-                      setCommentId(info.id);
-                    }}
-                  >
-                    <FaEdit color="rgb(79 70 229)" />
-                    <span>Edit</span>
-                  </button>
-
-                  <Separator orientation="vertical" className="mx-2" />
-                  <button
-                    className="flex items-center w-min gap-x-2"
-                    onClick={() => {
-                      handleDeleteComment(info.id);
-                    }}
-                  >
-                    <FaTrash color="rgb(79 70 229)" />
-                    <span>Delete</span>
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-          <div>
+          
+          <div className="border border-slate-100 rounded p-2 bg-indigo-50/50">
             <p className="mb-2 text-balance">{info.content}</p>
           </div>
+          <p className=" md:hidden w-full self-end text-muted-foreground text-xs text-end">
+          <TimeAgo datetime={info.createdAt} />
+        </p>
         </div>
+        
 
         {replies.length > 0 && (
           <>
@@ -116,6 +84,45 @@ export const Comment = ({
             </div>
           </>
         )}
+
+        <div className="flex w-full justify-end items-center mt-2">
+          <button
+            className="flex items-center gap-x-2"
+            onClick={() => {
+              setFocus();
+              setParentComment(info.id);
+            }}
+          >
+            <FaReply color="rgb(79 70 229)" />
+            <span>Reply</span>
+          </button>
+          {currentUser.id === info.userId && (
+            <>
+              <Separator orientation="vertical" className="mx-2" />
+              <button
+                className="flex items-center w-min gap-x-2"
+                onClick={() => {
+                  setFocus(info.content);
+                  setCommentId(info.id);
+                }}
+              >
+                <FaEdit color="rgb(79 70 229)" />
+                <span>Edit</span>
+              </button>
+
+              <Separator orientation="vertical" className="mx-2" />
+              <button
+                className="flex items-center w-min gap-x-2"
+                onClick={() => {
+                  handleDeleteComment(info.id);
+                }}
+              >
+                <FaTrash color="rgb(79 70 229)" />
+                <span>Delete</span>
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
