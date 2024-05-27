@@ -9,15 +9,15 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-export const PaginationParent = ({currentPage, changePage}) => {
+export const PaginationParent = ({start, changePage}) => {
   return (
     <Pagination className={"text-white"}>
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious onClick={() => changePage(-5)} />
+          <PaginationPrevious className={start === 0 ? " pointer-events-none text-muted-foreground !cursor-not-allowed":"cursor-pointer"} onClick={() => changePage(-5)} />
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink href="#">{currentPage}</PaginationLink>
+          <PaginationLink href="#">{((start * 2) / 10) + 1}</PaginationLink>
         </PaginationItem>
         {/* <PaginationItem>
           <PaginationEllipsis />

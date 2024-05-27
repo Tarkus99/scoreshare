@@ -18,12 +18,13 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "../ui/button";
 import { MyTimeAgo } from "../misc/my-time-ago";
-import { deleteFileById } from "@/actions/fileActions";
+import { deleteFileById } from "@/actions/file";
 import { useResponseMessages } from "@/hooks/use-response-messages";
 import { AlertMessage } from "../misc/alert";
 import { PopoverSheet } from "../misc/popover-sheet";
 import { UpdateFileForm } from "../form/update-file-form";
 import { LoadingTriangles } from "../misc/loading-triangles";
+import { GetMediaType } from "../misc/get-type";
 
 export const FilesAccordion = ({ files }) => {
   const [loading, setLoading] = useState(false);
@@ -125,9 +126,10 @@ export const FilesAccordion = ({ files }) => {
                           <div className="flex items-end justify-between py-3 rounded text-primary/90 ps-3 bg-slate-50">
                             <div>
                               <p className="flex items-center font-semibold capitalize">
-                                {file.name} {getType(file)}
+                                {file.name} <GetMediaType file={file}/>
                               </p>
                               <p>{file.instrument}</p>
+                              <small>Rating: {file.rating}</small>
                               <small className="block">
                                 Commentaries: {file._count.comments}
                               </small>
@@ -143,7 +145,6 @@ export const FilesAccordion = ({ files }) => {
                               >
                                 <UpdateFileForm
                                   file={file}
-                                  /* addFile={replaceFile} */
                                 />
                               </PopoverSheet>
                               {isUniqueFileInTrack > 1 && (
@@ -172,12 +173,3 @@ export const FilesAccordion = ({ files }) => {
     </>
   );
 };
-function getType(file) {
-  const ext = file.url.split(".").pop();
-  if (ext === "mp3")
-    return <sup className="lowercase text-cyan-500 ms-1">mp3</sup>;
-  if (ext === "mp4")
-    return <sup className="lowercase text-amber-500 ms-1">mp4</sup>;
-  if (ext === "pdf")
-    return <sup className="lowercase text-rose-500 ms-1">pdf</sup>;
-}

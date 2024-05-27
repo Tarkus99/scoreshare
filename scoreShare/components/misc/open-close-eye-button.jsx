@@ -6,9 +6,9 @@ export const OpenCloseEyeButton = memo(() => {
   return (
     <button onClick={() => setShowingComments(!showingComments)}>
       {showingComments ? (
-        <EyeOpenIcon width={32} height={32} className="cursor-pointer" />
+        <EyeOpenIcon width={"1.5rem"} height={"auto"} className="cursor-pointer" />
       ) : (
-        <EyeClosedIcon width={32} height={32} className="cursor-pointer" />
+        <EyeClosedIcon  width={"1.5rem"} height={"auto"} className="cursor-pointer" />
       )}
     </button>
   );

@@ -8,6 +8,9 @@ import { FileTableFilters } from "./file-table-filters";
 import TimeAgo from "timeago-react";
 import { PaginationParent } from "./pagination-parent";
 import { useFiltersRef } from "@/hooks/filters-ref";
+import { GetMediaType } from "../misc/get-type";
+import { removeExtensionFromName } from "@/lib/utils";
+import { FaArrowTrendDown, FaArrowTrendUp } from "react-icons/fa6";
 
 const FileTable = ({ files: propsFiles, setCurrentFile, children }) => {
   const [copyFiles, setCopyFiles] = useState(propsFiles);
@@ -15,7 +18,8 @@ const FileTable = ({ files: propsFiles, setCurrentFile, children }) => {
   const [endIndex, setEndIndex] = useState(5);
   const filtersRef = useFiltersRef();
   const changePage = (value) => {
-    if (propsFiles.length - 1 < startIndex + value || startIndex + value < 0) return;
+    if (propsFiles.length - 1 < startIndex + value || startIndex + value < 0)
+      return;
     setStartIndex(startIndex + value);
     setEndIndex(endIndex + value);
   };
@@ -39,10 +43,7 @@ const FileTable = ({ files: propsFiles, setCurrentFile, children }) => {
         </PopoverSheet>
       </FileTableFilters>
       {createTable(copyFiles)}
-      <PaginationParent
-        currentPage={(startIndex * 2) / 10 + 1}
-        changePage={changePage}
-      />
+      <PaginationParent start={startIndex} changePage={changePage} />
     </div>
   );
   function createTable(files) {
@@ -57,7 +58,10 @@ const FileTable = ({ files: propsFiles, setCurrentFile, children }) => {
               <h1>Intrument</h1>
             </div>
             <div>
-              <h1>Created by</h1>
+              <h1>Author</h1>
+            </div>
+            <div className="hidden md:block">
+              <h1>Trend</h1>
             </div>
           </TableRow>
           {files.length === 0 ? (
@@ -79,14 +83,15 @@ const FileTable = ({ files: propsFiles, setCurrentFile, children }) => {
                   }}
                 >
                   <div className="w-full group">
-                    <p className="items-center w-full overflow-y-visible capitalize truncate transition-all group-hover:text-indigo-800 text-ellipsis gap-x-1">
-                      {removeExtensionFromName(f.name)} {getType(f)}
+                    <p className="w-full overflow-y-visible capitalize truncate transition-all text-start group-hover:text-indigo-800 text-ellipsis gap-x-1">
+                      {removeExtensionFromName(f.name)}{" "}
+                      <GetMediaType file={f} />
                     </p>
                   </div>
                   <div className="hidden font-semibold md:block">
                     {f.instrument}
                   </div>
-                  <div className="flex flex-wrap">
+                  <div className="flex flex-wrap px-1">
                     <div className="flex items-center justify-center w-full gap-x-4">
                       <Image
                         alt=""
@@ -101,6 +106,13 @@ const FileTable = ({ files: propsFiles, setCurrentFile, children }) => {
                       <TimeAgo datetime={f.uploadedAt} />
                     </small>
                   </div>
+                  <p className="justify-center hidden w-full md:flex">
+                    {f.rating > 0 ? (
+                      <FaArrowTrendUp color="green" />
+                    ) : (
+                      <FaArrowTrendDown color="red" />
+                    )}
+                  </p>
                 </TableRow>
               ))
           )}
@@ -111,20 +123,3 @@ const FileTable = ({ files: propsFiles, setCurrentFile, children }) => {
 };
 
 export default React.memo(FileTable);
-
-function getType(file) {
-  const ext = file.url.split(".").pop();
-  if (ext === "mp3")
-    return <sup className="text-sm lowercase text-cyan-500 ms-1">mp3</sup>;
-  if (ext === "mp4")
-    return <sup className="lowercase text-amber-500 ms-1">mp4</sup>;
-  if (ext === "pdf")
-    return <sup className="lowercase text-rose-500 ms-1">pdf</sup>;
-}
-
-function removeExtensionFromName(name) {
-  const arr = name.split(".");
-  if (arr.length > 1) return arr.slice(0, -1).join(".");
-
-  return name;
-}

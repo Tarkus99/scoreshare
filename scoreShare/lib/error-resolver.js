@@ -3,6 +3,7 @@ export const resolveError = (error) => {
   let status, message;
   if (isPrismaError(error)) {
     console.log("PRISMA ERROR");
+    const meta = error.meta;
     if (error.code === "P2028") {
       message = "Timeout!";
       status = 500;
@@ -10,10 +11,13 @@ export const resolveError = (error) => {
       message = "Invalid fields...";
       status = 400;
     } else if (error.code === "P2002") {
-      if (error.meta?.modelName === "File") {
-        message = "You've already uploaded a file with that name!";
+      if (meta?.modelName === "File") {
+        if (meta.target.includes("name") && meta.target.includes("instrument"))
+          message =
+            "You've already uploaded a file with that name for the same instrument!";
+        else message = "You've already uploaded a file with that name";
         status = 400;
-      } else if (error.meta?.modelName === "Track") {
+      } else if (meta?.modelName === "Track") {
         message = "You've already uploaded a file with that name!";
         status = 400;
       }
@@ -45,7 +49,7 @@ export const resolveError = (error) => {
 };
 
 function isPrismaError(error) {
-  return error.code instanceof String && error.code.startsWith("P");
+  return typeof error.code === "string" && error.code.startsWith("P");
 }
 
 function isSupabaseError(error) {

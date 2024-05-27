@@ -1,18 +1,12 @@
-
 "use server";
-
+import { supDeleteFile, supMoveFile, supUploadFile } from "@/lib/supabase";
 import {
-  supDeleteFile,
-  supMoveFile,
-  supUploadFile,
-} from "@/lib/supabase";
-import {
-  createFile,
-  deleteFile,
+  createFileData,
+  deleteFileData,
   getFilesByTrackIdData,
-  getFilesByUserId,
-  updateFile,
-} from "@/data/fileData";
+  getFilesByUserIdData,
+  updateFileData,
+} from "@/data/file";
 import { resolveError } from "@/lib/error-resolver";
 import { currentUser } from "./server";
 import { db } from "@/lib/db";
@@ -23,6 +17,13 @@ import { revalidatePath } from "next/cache";
 export const getFilesByTrackId = async (id) => {
   try {
     const data = await getFilesByTrackIdData(id);
+    const user = await currentUser();
+    data.map((file) => {
+      file.hasUserVoted = file.votes.find((v) => v.userId === user.id);
+      file.total = file.votes.length;
+      file.rating = file.votes.reduce((acc, v) => acc + v.vote, 0);
+      delete file.votes;
+    });
     return data;
   } catch (error) {
     resolveError(error);
@@ -32,8 +33,14 @@ export const getFilesByTrackId = async (id) => {
 
 export const getFilesByUser = async (id) => {
   try {
-    const data = await getFilesByUserId(id);
-
+    const data = await getFilesByUserIdData(id);
+    const user = await currentUser();
+    data.map((file) => {
+      file.hasUserVoted = file.votes.find((v) => v.userId === user.id);
+      file.total = file.votes.length;
+      file.rating = file.votes.reduce((acc, v) => acc + v.vote, 0);
+      delete file.votes;
+    });
     return data;
   } catch (error) {
     resolveError(error);
@@ -51,7 +58,7 @@ export const uploadFileAlongWithTrack = async (formData, trackId, conn) => {
   fileToInsert.url = name;
   fileToInsert.userId = user.id;
 
-  const result = await createFile(conn, fileToInsert);
+  const result = await createFileData(conn, fileToInsert);
   const uploadInfo = await supUploadFile(file, name);
 
   if (uploadInfo.error) {
@@ -61,8 +68,8 @@ export const uploadFileAlongWithTrack = async (formData, trackId, conn) => {
     throw err;
   }
 
-  revalidatePath("/(protected)/track/[id]", "page")
-    revalidatePath("/(protected)/profile/", "page")
+  revalidatePath("/(protected)/track/[id]", "page");
+  revalidatePath("/(protected)/profile/", "page");
 
   return {
     success: true,
@@ -85,7 +92,7 @@ export const uploadFileWithTransaction = async (trackId, formData) => {
     let result;
 
     await db.$transaction(async (tx) => {
-      result = await createFile(tx, fileToInsert);
+      result = await createFileData(tx, fileToInsert);
       const uploadInfo = await supUploadFile(file, name);
       if (uploadInfo.error) {
         let err = new Error(uploadInfo.error.message);
@@ -94,13 +101,8 @@ export const uploadFileWithTransaction = async (trackId, formData) => {
       }
     });
 
-    /* return {
-      success: true,
-      message: "File has been added to the track",
-      payload: result,
-    }; */
-    revalidatePath("/(protected)/track/[id]", "page")
-    revalidatePath("/(protected)/profile/", "page")
+    revalidatePath("/(protected)/track/[id]", "page");
+    revalidatePath("/(protected)/profile/", "page");
   } catch (error) {
     const [status, message] = resolveError(error);
     return {
@@ -122,7 +124,7 @@ export const putFile = async (id, formData, oldFile) => {
 
   try {
     await db.$transaction(async (tx) => {
-      result = await updateFile(id, fileToInsert, tx);
+      result = await updateFileData(id, fileToInsert, tx);
 
       if (file) {
         //upload
@@ -151,7 +153,7 @@ export const putFile = async (id, formData, oldFile) => {
         }
       }
     });
-    revalidatePath("/(protected)/profile/", "page")
+    revalidatePath("/(protected)/profile/", "page");
     return {
       success: true,
       message: "File has been updated successfully!",
@@ -171,7 +173,7 @@ export const deleteFileById = async (id) => {
   let result;
   try {
     await db.$transaction(async (tx) => {
-      result = await deleteFile(id, tx);
+      result = await deleteFileData(id, tx);
       const deleteInfo = await supDeleteFile(result.url);
 
       if (deleteInfo.error) {
@@ -179,8 +181,8 @@ export const deleteFileById = async (id) => {
         throw err;
       }
     });
-    revalidatePath("/(protected)/track/[id]", "page")
-    revalidatePath("/(protected)/profile/", "page")
+    revalidatePath("/(protected)/track/[id]", "page");
+    revalidatePath("/(protected)/profile/", "page");
     return {
       success: true,
       message: "File has been deleted successfully!",

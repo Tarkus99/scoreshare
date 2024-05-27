@@ -16,7 +16,7 @@ export const MyVideoPlayer = ({ url }) => {
     ></div>
   ); */
   return (
-    <div className="rounded">
+    <div className="rounded aspect-video w-10/12 md:w-2/4">
       <video src={url} autoPlay controls></video>
     </div>
   );

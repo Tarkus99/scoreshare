@@ -1,16 +1,12 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { OpenCloseEyeButton } from "../misc/open-close-eye-button";
-import {
-  addComment,
-  getComments,
-  removeComment,
-} from "@/actions/commentActions";
+import { addComment, getComments, removeComment } from "@/actions/comment";
 import { Comment } from "./comment";
 import { Textarea } from "../ui/textarea";
 import { SubmitButton } from "../misc/submit-button";
 import Image from "next/image";
 import { useUser } from "@/hooks/use-current-user";
-import { CREATED, OK, is2xx } from "@/lib/utils";
+import { CREATED, is2xx } from "@/lib/utils";
 
 export const ParentCommentContainer = memo(({ file }) => {
   const [error, setError] = useState(null);
@@ -19,6 +15,7 @@ export const ParentCommentContainer = memo(({ file }) => {
   const commentId = useRef(null);
   const textArea = useRef();
   const user = useUser();
+  console.log(user);
 
   useEffect(() => {
     getComments(file.id).then((data) => {
@@ -86,11 +83,13 @@ export const ParentCommentContainer = memo(({ file }) => {
 
   return (
     <div className="grid items-center grid-cols-2 gap-x-2 auto-rows-auto">
-      <h1 className="text-lg font-bold ms-2">Commentaries:</h1>
+      <div className="col-span-2 flex justify-between px-2 items-center">
+        <h1 className="text-lg font-bold ms-2">Commentaries:</h1>
 
-      <label htmlFor="show-comments" className="justify-self-end me-12">
-        <OpenCloseEyeButton />
-      </label>
+        <label htmlFor="show-comments" className="justify-self-end me-2">
+          <OpenCloseEyeButton />
+        </label>
+      </div>
 
       <input
         className="hidden peer"
@@ -102,25 +101,28 @@ export const ParentCommentContainer = memo(({ file }) => {
         <div id="add-comment">
           <form
             action={handleAddComment}
-            className="flex items-start justify-between p-4 bg-white rounded-sm shadow-md gap-x-4"
+            className="grid grid-rows-2 grid-cols-1 items-start justify-between md:p-4 p-2 bg-white rounded-sm shadow-md gap-x-4"
           >
+            
             <Image
               alt=""
               height={100}
               width={100}
               src={user.image || ""}
-              className="w-8 rounded-full "
+              className="w-8 rounded-full col-start-1 row-start-1"
             />
+            <SubmitButton />
+
+            
             <Textarea
               ref={textArea}
               name="content"
-              className="flex-1"
+              className=" col-span-1 row-start-2 row-span-1"
               placeholder="Add a comment..."
               min="5"
               max="250"
               required
             />
-            <SubmitButton />
           </form>
           {error && <p className="my-2 text-sm text-destructive">{error}</p>}
         </div>

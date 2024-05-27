@@ -22,7 +22,7 @@ export const Comment = ({
         <VoteArrows info={info}/>
         <div className="flex-1 space-y-2">
           <div className="flex justify-between">
-            <div className="flex items-center flex-1 gap-x-2">
+            <div className="flex items-center basis-11/12 gap-x-2">
               <Image
                 alt=""
                 width={100}
@@ -30,7 +30,7 @@ export const Comment = ({
                 className="w-4 rounded-full"
                 src={info.user.image || "/defaultUser.png"}
               />
-              <h1 className="font-bold">{info.user.name}</h1>
+              <h1 className="font-bold text-sm">{info.user.name}</h1>
               <p className="text-muted-foreground">
                 <TimeAgo datetime={info.createdAt} />
               </p>

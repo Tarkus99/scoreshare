@@ -23,7 +23,7 @@ import {
   MAX_FILE_SIZE,
   removeExtensionFromFileNameInForm,
 } from "@/lib/utils";
-import { uploadFileWithTransaction } from "@/actions/fileActions";
+import { uploadFileWithTransaction } from "@/actions/file";
 
 export const UploadFileForm = ({ trackId, addFile }) => {
   const [loading, setLoading] = useState(false);

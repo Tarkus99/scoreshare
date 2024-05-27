@@ -23,7 +23,7 @@ import {
   MAX_FILE_SIZE,
   removeExtensionFromFileNameInForm,
 } from "@/lib/utils";
-import { putFile } from "@/actions/fileActions";
+import { putFile } from "@/actions/file";
 
 export const UpdateFileForm = ({ file }) => {
   const [loading, setLoading] = useState(false);

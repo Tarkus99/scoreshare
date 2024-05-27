@@ -1,9 +1,9 @@
 "use server"
-import { insertVote } from "@/data/votes";
+import { insertVoteCommentData } from "@/data/voteInComment";
 import { currentUser } from "./server";
 import { resolveError } from "@/lib/error-resolver";
 
-export const createVote = async (id, commentId, vote) => {
+export const createVoteInComment = async (id, commentId, vote) => {
     const user = await currentUser();
   try {
     const voteToInsert = {
@@ -11,7 +11,7 @@ export const createVote = async (id, commentId, vote) => {
         vote,
         userId: user.id
     }
-    const result = await insertVote(id || -1, voteToInsert);
+    const result = await insertVoteCommentData(id || -1, voteToInsert);
     return result;
   } catch (error) {
      resolveError(error);

@@ -1,18 +1,27 @@
 "use server";
-
 import { auth } from "@/auth";
 import {
-  deleteCommentData,
-  getCommentsByFileIdData,
-  insertCommentData,
-  updateCommentData,
-} from "@/data/commentData";
+  deleteCommentData, insertCommentData, updateCommentData, getCommentsByFileIdData
+} from "@/data/comment";
 import { resolveError } from "@/lib/error-resolver";
 import { CREATED, FAILED, OK, hasForbiddenContent } from "@/lib/utils";
+import { currentUser } from "./server";
 
 export const getComments = async (fileId) => {
-  const data = await getCommentsByFileIdData(fileId);
-  return data;
+  try {
+    const data = await getCommentsByFileIdData(fileId);
+    const user = await currentUser();
+    data.map((comment) => {
+      comment.hasUserVoted = comment.votes.find((v) => v.userId === user.id);
+      comment.total = comment.votes.length;
+      comment.rating = comment.votes.reduce((acc, v) => acc + v.vote, 0);
+      delete comment.votes;
+    });
+    return data;
+  } catch (error) {
+    const [status, message] = resolveError(error);
+    return [];
+  }
 };
 
 export const addComment = async (formData) => {

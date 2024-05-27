@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 
-export const getFileById = async (id) => {
+export const getFileByIdData = async (id) => {
   const file = await db.file.findUnique({
     where: { id },
   });
@@ -24,12 +24,13 @@ export const getFilesByTrackIdData = async (id) => {
           image: true,
         },
       },
+      votes: true
     },
   });
   return files;
 };
 
-export const getFilesByUserId = async (id) => {
+export const getFilesByUserIdData = async (id) => {
   const files = await db.file.findMany({
     orderBy: [
       {
@@ -49,17 +50,19 @@ export const getFilesByUserId = async (id) => {
           }
         }
       },
+
       _count: {
         select: {
           comments: true,
         },
       },
+      votes: true
     },
   });
   return files;
 };
 
-export const createFile = async (conn = db, file) => {
+export const createFileData = async (conn = db, file) => {
   const result = await conn.file.create({
     data: file,
     include: {
@@ -75,7 +78,7 @@ export const createFile = async (conn = db, file) => {
 };
 
 
-export const updateFile = async (id, file, conn = db) => {
+export const updateFileData = async (id, file, conn = db) => {
   const result = await conn.file.update({
     where: { id },
     data: {
@@ -102,7 +105,7 @@ export const updateFile = async (id, file, conn = db) => {
   return result;
 };
 
-export const deleteFile = async (id, conn = db) => {
+export const deleteFileData = async (id, conn = db) => {
   const result = await conn.file.delete({
     where: {
       id: id,

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import {
   Dialog,
-  DialogContent, DialogFooter,
+  DialogContent,
+  DialogFooter,
   DialogHeader,
-  DialogTitle
+  DialogTitle,
 } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { LoadingTriangles } from "./misc/loading-triangles";
@@ -15,7 +16,7 @@ import { MyVideoPlayer } from "./media/video-player";
 import { PdfViewer } from "./media/pdf-viewer";
 import { downloadFile } from "@/fetching";
 
-export const FileViewerParent = ({ file, setCurrentFile }) => {
+export const FileViewerParent = ({ file, setCurrentFile, children }) => {
   const extension = file.url.split(".").splice(-1)[0];
   const [url, setUrl] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -52,9 +53,9 @@ export const FileViewerParent = ({ file, setCurrentFile }) => {
               width={200}
               height={200}
               src={file.user.image}
-              className="w-12 rounded-full aspect-square"
+              className="w-10 rounded-full aspect-square"
             />
-            <DialogTitle className="text-whitems-2">
+            <DialogTitle className="text-sm md:text-base ms-2">
               {file.user.name}
             </DialogTitle>
             <a href={url} download={true}>
@@ -71,6 +72,7 @@ export const FileViewerParent = ({ file, setCurrentFile }) => {
             getMedia(url, extension)
           )}
         </div>
+        {children}
         <ParentCommentContainer file={file} />
         <DialogFooter className="p-2 "></DialogFooter>
       </DialogContent>

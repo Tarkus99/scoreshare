@@ -123,6 +123,12 @@ export const FORBIDDEN_CONTENT = [
 export function removeExtensionFromFileNameInForm(name) {
   return name.split(".").slice(0, -1).join(".");
 }
+export function removeExtensionFromName(name){
+  const arr = name.split(".");
+  if (arr.length > 1) return arr.slice(0, -1).join(".");
+
+  return name;
+}
 export const MAX_FILE_SIZE = 4194304;
 export const ALLOWED_TYPES = ["audio/mpeg", "video/mp4", "application/pdf"];
 export const ORDER_BY_RECENT = 1;
@@ -131,7 +137,7 @@ export const ORDER_BY_POPULARITY = 2;
 export const resolveFileName = (fileInfo, user, oldFile = "") => {
   return `${fileInfo.name.trim().split(" ").join("_")}_${fileInfo.instrument}_${
     user.id
-  }.${oldFile?.split(".").pop() || getExtension(fileInfo.file)}`;
+  }.${oldFile?.split(".").pop() || getExtension(fileInfo.file)}`.toLowerCase();
 };
 
 function getExtension(file) {

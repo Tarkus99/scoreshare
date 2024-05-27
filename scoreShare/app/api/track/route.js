@@ -4,7 +4,7 @@ import { getTrackByQueryData } from "@/data/track";
 import { DateTime } from "luxon";
 import { supGetPublicUrl, supUploadImage } from "@/lib/supabase";
 import { db } from "@/lib/db";
-import { uploadFileAlongWithTrack } from "@/actions/fileActions";
+import { uploadFileAlongWithTrack } from "@/actions/file";
 import { resolveError } from "@/lib/error-resolver";
 
 export async function GET(request) {

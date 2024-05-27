@@ -3,31 +3,8 @@ import { db } from "@/lib/db";
 
 export const getCommentsByFileIdData = async (fileId) => {
   const user = await currentUser();
-  const prisma = db.$extends({
-    result: {
-      comment: {
-        hasUserVoted: {
-          needs: { votes: true },
-          compute(comment) {
-            return comment.votes.find((v) => v.userId === user.id);
-          },
-        },
-        totalVotes: {
-          needs: { votes: true },
-          compute(comment) {
-            return comment.votes.length;
-          },
-        },
-        rating: {
-          needs: { votes: true },
-          compute(comment) {
-            return comment.votes.reduce((acc, v) => acc + v.vote, 0);
-          },
-        },
-      },
-    },
-  });
-  const result = await prisma.comment.findMany({
+
+  const result = await db.comment.findMany({
     where: {
       fileId: fileId,
     },

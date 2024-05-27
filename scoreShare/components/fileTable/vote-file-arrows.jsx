@@ -1,4 +1,4 @@
-import { createVoteInComment } from "@/actions/voteInComment";
+import { createVoteInFile } from "@/actions/voteInFile";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import {
@@ -8,8 +8,7 @@ import {
   AiOutlineLike,
 } from "react-icons/ai";
 
-export const VoteArrows = ({ info }) => {
-  console.log(info);
+export const VoteFileArrows = ({ info }) => {
   const [rating_, setRating] = useState(info.rating || 0);
   const [total_, setTotal] = useState(info.totalVotes || 0);
   const [hasUserVoted, setHasUserVoted] = useState(info.hasUserVoted);
@@ -42,7 +41,7 @@ export const VoteArrows = ({ info }) => {
 
   const handleLikeChange = async (value) => {
     if (!hasUserVoted) setTotal(total_ + 1);
-    const result = await createVoteInComment(hasUserVoted?.id, info.id, value);
+    const result = await createVoteInFile(hasUserVoted?.id, info.id, value);
     if (result) setHasUserVoted(result);
   };
 
@@ -53,8 +52,8 @@ export const VoteArrows = ({ info }) => {
   };
 
   return (
-    <div className="flex flex-col items-center basis-1/12">
-      <div className="flex flex-col items-center justify-center p-2 rounded bg-zinc-100 gap-y-2 w-min">
+    <div className={"pe-4 flex flex-col items-end"}>
+      <div className="flex items-center justify-center p-2 rounded gap-x-4 bg-zinc-100 gap-y-2 w-min">
         {isLike ? (
           <button
             className="scale-125 text-emerald-500"
@@ -94,7 +93,6 @@ export const VoteArrows = ({ info }) => {
           </button>
         )}
       </div>
-      <small>({total_})</small>
     </div>
   );
 };

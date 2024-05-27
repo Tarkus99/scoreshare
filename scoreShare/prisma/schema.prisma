@@ -35,7 +35,7 @@ model Account {
 model User {
   id            String          @id @default(cuid())
   name          String
-  email         String         @unique
+  email         String          @unique
   emailVerified DateTime?
   password      String?
   role          String          @default("USER")
@@ -44,6 +44,7 @@ model User {
   files         File[]
   comments      Comment[]
   votes         VoteInComment[]
+  voteInFile    VoteInFile[]
 }
 
 model VerificationToken {
@@ -85,17 +86,18 @@ model Artist {
 }
 
 model File {
-  id         String    @id @default(cuid())
-  track      Track     @relation(fields: [trackId], references: [id], onDelete: Cascade)
+  id         String       @id @default(cuid())
+  track      Track        @relation(fields: [trackId], references: [id], onDelete: Cascade)
   trackId    String
-  user       User      @relation(fields: [userId], references: [id])
+  user       User         @relation(fields: [userId], references: [id])
   userId     String
   name       String
   instrument String
   url        String
-  uploadedAt DateTime  @default(now())
-  modifiedAt DateTime  @default(now())
+  uploadedAt DateTime     @default(now())
+  modifiedAt DateTime     @default(now())
   comments   Comment[]
+  votes      VoteInFile[]
 
   @@unique([userId, name, instrument])
 }
@@ -124,5 +126,19 @@ model VoteInComment {
   vote      Int
   votedAt   DateTime @default(now())
   updatedAt DateTime @default(now())
+
   @@unique([userId, commentId])
+}
+
+model VoteInFile {
+  id        Int      @id @default(autoincrement())
+  fileId    String
+  file      File     @relation(fields: [fileId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vote      Int
+  votedAt   DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@unique([userId, fileId])
 }

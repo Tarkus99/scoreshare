@@ -8,7 +8,7 @@ export function SubmitButton() {
     <Button
       type="submit"
       disabled={pending}
-      className="text-white bg-indigo-600 w-min"
+      className="text-white bg-indigo-600 w-min order-3 col-start-1 row-start-1 justify-self-end"
     >
       Add
     </Button>
