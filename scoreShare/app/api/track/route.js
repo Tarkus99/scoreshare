@@ -10,9 +10,14 @@ import { resolveError } from "@/lib/error-resolver";
 export async function GET(request) {
   const url = new URL(request.url);
   const query = url.searchParams.get("query");
-  const result = await getTrackByQueryData(query);
-
-  return Response.json(result);
+  console.log(query);
+  try {
+    const result = await getTrackByQueryData(query);
+    return Response.json(result);
+  } catch (error) {
+    const [status, message] = resolveError(error);
+    return Response.json({ message: message }, { status: status });
+  }
 }
 
 export async function POST(request) {

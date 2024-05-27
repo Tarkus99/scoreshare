@@ -45,9 +45,8 @@ export const createTrack = (data) =>
     },
   }).then((res) => res.data);
 
-export const getAvailableTracks = (query) => {
-  return API.get(`/api/track?query=${query}`).then((res) => res.data);
-};
+export const getAvailableTracks = (query) => API.get(`/api/track?query=${query}`).then((res) => res.data);
+
 
 export const getAccessTokenSpotify = () =>
   SPOTIFY_TOKEN.post("/api/token", {

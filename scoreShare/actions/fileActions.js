@@ -9,7 +9,7 @@ import {
 import {
   createFile,
   deleteFile,
-  getFilesByTrackId,
+  getFilesByTrackIdData,
   getFilesByUserId,
   updateFile,
 } from "@/data/fileData";
@@ -18,10 +18,11 @@ import { currentUser } from "./server";
 import { db } from "@/lib/db";
 import { resolveFileName } from "@/lib/utils";
 import { getTrackByIdData } from "@/data/track";
+import { revalidatePath } from "next/cache";
 
-export const getFiles = async (id) => {
+export const getFilesByTrackId = async (id) => {
   try {
-    const data = await getFilesByTrackId(id);
+    const data = await getFilesByTrackIdData(id);
     return data;
   } catch (error) {
     resolveError(error);
@@ -89,11 +90,12 @@ export const uploadFileWithTransaction = async (trackId, formData) => {
       }
     });
 
-    return {
+    /* return {
       success: true,
       message: "File has been added to the track",
       payload: result,
-    };
+    }; */
+    revalidatePath("/(protected)/track/[id]", "page")
   } catch (error) {
     const [status, message] = resolveError(error);
     return {

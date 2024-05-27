@@ -1,3 +1,4 @@
+import { resolveError } from "@/lib/error-resolver";
 import { supDownloadFile } from "@/lib/supabase";
 import { NextResponse } from "next/server";
 
@@ -18,6 +19,7 @@ export async function GET(req) {
 
     return new NextResponse(data, {status: 200, headers});
   } catch (error) {
-    return Response.json({ message: error.message }, { status: 500 });
+    const [status, message] = resolveError(error)
+    return Response.json({ message: message }, { status: status });
   }
 }

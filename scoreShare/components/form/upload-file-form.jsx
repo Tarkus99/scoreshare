@@ -47,12 +47,8 @@ export const UploadFileForm = ({ trackId, addFile }) => {
     formData.append("instrument", values.instrument);
 
     const data = await uploadFileWithTransaction(trackId, formData);
-    if (data.success) {
-      setSuccess(data.message);
-      addFile(data.payload);
-    } else {
+    if(data)
       setFailed(data.message);
-    }
     setLoading(false);
   };
   return (

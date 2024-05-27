@@ -7,7 +7,7 @@ export const getFileById = async (id) => {
   return file;
 };
 
-export const getFilesByTrackId = async (id) => {
+export const getFilesByTrackIdData = async (id) => {
   const files = await db.file.findMany({
     orderBy: [
       {

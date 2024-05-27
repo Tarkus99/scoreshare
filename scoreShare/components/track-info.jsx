@@ -2,7 +2,6 @@ import { getTrackByIdData } from "@/data/track";
 import Image from "next/image";
 import { Label } from "./ui/label";
 import { RiSpotifyFill } from "react-icons/ri";
-import { Button } from "./ui/button";
 import Link from "next/link";
 
 export const TrackInfo = async ({ id }) => {

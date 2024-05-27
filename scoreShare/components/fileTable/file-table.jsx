@@ -1,60 +1,29 @@
 "use client";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-
+import React, { useState } from "react";
 import { Button } from "../ui/button";
-
 import { TableRow } from "./table-row";
 import Image from "next/image";
-import TableSkeleton from "../skeletons/table-skeleton";
-import { UploadFileForm } from "../form/upload-file-form";
 import { PopoverSheet } from "../misc/popover-sheet";
 import { FileTableFilters } from "./file-table-filters";
 import TimeAgo from "timeago-react";
-import { getFiles } from "@/actions/fileActions";
 import { PaginationParent } from "./pagination-parent";
 import { useFiltersRef } from "@/hooks/filters-ref";
 
-const FileTable = ({ trackId, setCurrentFile }) => {
-  const [files, setFiles] = useState([]);
-  const [copyFiles, setCopyFiles] = useState([]);
-  const [loading, setLoading] = useState(true);
+const FileTable = ({ files: propsFiles, setCurrentFile, children }) => {
+  const [copyFiles, setCopyFiles] = useState(propsFiles);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(5);
   const filtersRef = useFiltersRef();
   const changePage = (value) => {
-    if (files.length - 1 < startIndex + value || startIndex + value < 0) return;
+    if (propsFiles.length - 1 < startIndex + value || startIndex + value < 0) return;
     setStartIndex(startIndex + value);
     setEndIndex(endIndex + value);
   };
 
-  const fetchData = useCallback(
-    (trackId) => {
-      setLoading(true);
-      getFiles(trackId)
-        .then((data) => {
-          setFiles(data);
-          setCopyFiles(data);
-        })
-        .catch((error) => {})
-        .finally(() => setLoading(false));
-    },
-    [trackId]
-  );
-
-  const addFile = (payload) => {
-    setFiles([payload, ...files]);
-  };
-
-  useEffect(() => {
-    fetchData(trackId);
-  }, []);
-
-  if (loading) return <TableSkeleton />;
-
   return (
     <div className="col-span-2 ">
       <FileTableFilters
-        originalFiles={files}
+        originalFiles={propsFiles}
         copyFiles={copyFiles}
         setCopyFiles={setCopyFiles}
         filtersRef={filtersRef}
@@ -66,7 +35,7 @@ const FileTable = ({ trackId, setCurrentFile }) => {
             </Button>
           }
         >
-          <UploadFileForm trackId={trackId} addFile={addFile} />
+          {children}
         </PopoverSheet>
       </FileTableFilters>
       {createTable(copyFiles)}
