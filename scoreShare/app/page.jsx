@@ -52,7 +52,7 @@ export default function Home() {
       </nav>
 
       <section className="grid w-full grid-cols-1 gap-5 basis-[94%]  md:grid-cols-2">
-        <div className="flex flex-col h-[inherit] p-1 md:p-0 w-full gap-2 items-center  md:items-end justify-center rounded-sm  bg-gradient-to-b from-purple-400/20 to-emerald-50/10 text-primary backdrop-blur-[2px] pe-2">
+        <div style={{paddingRight: "0.5rem"}} className="flex flex-col h-[inherit] p-1 md:p-0 w-full gap-2 items-center  md:items-end justify-center rounded-sm  bg-gradient-to-b from-purple-400/20 to-emerald-50/10 text-primary backdrop-blur-[2px]">
           <div className="flex items-end ">
             <Image src="/star.png" alt="star" width={48} height={48} />
             <small className="font-bold text-white">Best app of 2021</small>

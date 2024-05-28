@@ -9,7 +9,6 @@ export const Social = ({loading, setLoading}) => {
     const onClick = async (provider) => {
         await signIn(provider, {
             callbackUrl: DEFAULT_LOGIN_REDIRECT,
-            redirect:'/'
         })
     }
     return (

@@ -100,16 +100,12 @@ export const uploadFileWithTransaction = async (trackId, formData) => {
         throw err;
       }
     });
+    revalidatePath("/(protected)/profile/", "page");
 
     revalidatePath("/(protected)/track/[id]", "page");
-    revalidatePath("/(protected)/profile/", "page");
   } catch (error) {
     const [status, message] = resolveError(error);
-    return {
-      success: false,
-      status: status,
-      message: message,
-    };
+    return {success: false, status: status, message: message,};
   }
 };
 

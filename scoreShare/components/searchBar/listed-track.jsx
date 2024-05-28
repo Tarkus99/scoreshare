@@ -1,10 +1,9 @@
 import React from "react";
-import { AlbumCoverList } from "./album-cover-list";
 
 export const ListedTrack = ({ track, children }) => {
   return (
     <>
-      <div className="max-w-[70%]  my-2 md:my-0 text-base">
+      <div className="max-w-[70%] my-2 md:my-0 text-base">
         <p className="w-full font-semibold capitalize truncate transition-all group-hover:text-indigo-800">
           {track.name}
         </p>

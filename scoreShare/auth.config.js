@@ -7,6 +7,7 @@ import bcrypt from "bcryptjs";
 
 import { LoginSchema } from "./schemas";
 import { getUserByEmail } from "./data/user";
+import { resolveError } from "./lib/error-resolver";
 
 export default {
   providers: [
@@ -22,14 +23,15 @@ export default {
       async authorize(credentials) {
         try {
           const { email, password } = await LoginSchema.validate(credentials);
+
           const user = await getUserByEmail(email);
           if (!user || !user.password) return null;
+          
           const passwordMatch = await bcrypt.compare(password, user.password);
-          console.log(passwordMatch, "passwordMatch");
-
           if (passwordMatch) return user;
+
         } catch (err) {
-          console.log(err);
+          resolveError(err)
         }
         return null;
       },
