@@ -23,13 +23,13 @@ export const SearchBar = ({ isSearching }) => {
     setLoading(true);
     const value = e.target.value;
     if (timeOut) clearTimeout(timeOut);
-    
+
     if (!value) {
       setExistingTracks([]);
       setLoading(false);
       return;
     }
-    
+
     timeOut = setTimeout(async () => {
       try {
         const data = await getAvailableTracks(value);
@@ -63,11 +63,16 @@ export const SearchBar = ({ isSearching }) => {
         }}
       />
       {isSearching && (
-        <div className="absolute max-h-[20rem] overflow-y-scroll flex flex-col gap-0 top-[85%] space-y-1 inset-x-0 p-1 pt-2 -z-10 bg-gray-100 rounded-sm text-xl sm:text-base md:text-sm">
+        <div className="absolute max-h-[60vh] overflow-y-scroll flex flex-col gap-0 top-[85%] space-y-1 inset-x-0 p-1 pt-2 -z-10 bg-gray-100 rounded-sm text-xl sm:text-base md:text-sm">
           {existingTracks.map((track) => (
             <Link key={v4()} href={`/tracks/[id]`} as={`/tracks/${track.id}`}>
               <div className="relative flex items-center justify-between flex-1 gap-1 p-1 overflow-y-hidden border-transparent cursor-pointer group sm:transition-all text-primary ps-4 bg-gradient-to-l odd:from-slate-100 odd:to-slate-200 even:from-zinc-100 even:to-zinc-100 auto-cols-fr hover:bg-purple-100 hover:cursor-pointer hover:border-indigo-100 hover:shadow-inner">
-                <ListedTrack track={track} />
+                <ListedTrack track={track}>
+                  <AlbumCoverList
+                    image={track.image || track.album.images[1].url}
+                    className="w-16 md:w-24 2xl:w-28"
+                  />
+                </ListedTrack>
               </div>
             </Link>
           ))}

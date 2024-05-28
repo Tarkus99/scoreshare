@@ -26,7 +26,7 @@ export const UserButton = memo(() => {
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="p-0 rounded-sm bg-indigo-50 w-fit">
+      <DropdownMenuContent className="p-0 rounded-sm bg-indigo-100 w-fit">
         <GoToProfileButton>
           <DropdownMenuItem className="justify-around cursor-pointer hover:bg-indigo-300">
             Go to profile

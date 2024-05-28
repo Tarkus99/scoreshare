@@ -23,6 +23,8 @@ import { FaEdit } from "react-icons/fa";
 import { updateProfile } from "@/fetching";
 import { useSession } from "next-auth/react";
 import { FaUser } from "react-icons/fa6";
+import {MdEmail} from "react-icons/md"
+import { RiLockPasswordFill } from "react-icons/ri";
 import { useResponseMessages } from "@/hooks/use-response-messages";
 import { MyManrope } from "../misc/manrope";
 
@@ -75,7 +77,7 @@ export const UserInfo = ({ label }) => {
             encType="multipart/form-data"
           >
             <div className="flex flex-col items-center px-2 py-5 space-y-2 rounded-sm bg-purple-50">
-              <div className="flex flex-wrap items-end justify-around w-full gap-2 px-5">
+              <div className="flex flex-wrap items-end justify-around w-full gap-2 md:px-5">
                 <div className="grid items-center justify-around w-full grid-cols-2 gap-x-5">
                   <span className="justify-self-end">
                     <p>Avatar image</p>
@@ -119,9 +121,10 @@ export const UserInfo = ({ label }) => {
                   )}
                 />
               </div>
-              <Separator />
-              <div className="grid items-end justify-around w-full grid-cols-2 gap-x-5">
-                <p className="justify-self-end">Name</p>
+              <Separator  className="!my-2"/>
+              <div className="grid items-center md:items-end justify-around w-full grid-flow-col-dense md:grid-cols-2 md:gap-x-5">
+                <p className="hidden md:block justify-self-end">Name</p>
+                <FaUser className="md:hidden"/>
                 <FormField
                   control={form.control}
                   name="name"
@@ -142,9 +145,10 @@ export const UserInfo = ({ label }) => {
                   )}
                 />
               </div>
-              <Separator />
-              <div className="grid items-end justify-around w-full grid-cols-2 gap-5">
-                <p className="justify-self-end">Email</p>
+              <Separator className="!my-2"/>
+              <div className="grid items-center md:items-end justify-around w-full grid-flow-col-dense md:grid-cols-2 md:gap-5">
+                <p className="hidden md:block justify-self-end">Email</p>
+                <MdEmail className="md:hidden"/>
                 <FormField
                   control={form.control}
                   name="email"
@@ -165,9 +169,10 @@ export const UserInfo = ({ label }) => {
                   )}
                 />
               </div>
-              <Separator />
-              <div className="grid items-end justify-around w-full grid-cols-2 gap-5">
-                <p className="justify-self-end">Password</p>
+              <Separator className="!my-2"/>
+              <div className="grid items-center md:items-end justify-around w-full grid-flow-col-dense md:grid-cols-2 md:gap-x-5">
+                <p className="hidden md:block justify-self-end">Password</p>
+                <RiLockPasswordFill className="md:hidden"/>
                 <FormField
                   control={form.control}
                   name="password"
@@ -188,7 +193,7 @@ export const UserInfo = ({ label }) => {
                   )}
                 />
               </div>
-              <Separator />
+              <Separator  className="!my-2"/>
               <AlertMessage
                 title={"Error"}
                 variant={"destructive"}

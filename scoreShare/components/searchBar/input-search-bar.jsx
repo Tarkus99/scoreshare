@@ -8,7 +8,7 @@ const inputVariants = cva(
     variants: {
       variant: {
         navbar: "w-0 drop-shadow-lg",
-        form: " py-2 focus-visible:ring-1 md:focus-visible:ring-2 ring-cyan-500 drop-shadow-md",
+        form: " py-2 text-base focus-visible:ring-1 md:focus-visible:ring-2 ring-cyan-500 drop-shadow-md",
         default: "py-2",
       },
     },

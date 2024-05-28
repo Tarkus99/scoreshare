@@ -1,10 +1,10 @@
 import React from "react";
 import { AlbumCoverList } from "./album-cover-list";
 
-export const ListedTrack = ({ track }) => {
+export const ListedTrack = ({ track, children }) => {
   return (
     <>
-      <div className="max-w-[60%]  my-2 md:my-0 text-base">
+      <div className="max-w-[70%]  my-2 md:my-0 text-base">
         <p className="w-full font-semibold capitalize truncate transition-all group-hover:text-indigo-800">
           {track.name}
         </p>
@@ -12,8 +12,9 @@ export const ListedTrack = ({ track }) => {
           <small>
             <i>{track.album?.name || track.source}</i>
           </small>
-          ,
-          <small className="text-sm ms-1">
+        </p>
+        <p>
+          <small className="text-sm">
             <i>{track.artists.map((a) => a.name).join(", ")}</i>
           </small>
         </p>
@@ -21,7 +22,7 @@ export const ListedTrack = ({ track }) => {
           <small>{track.album.release_date.substring(0, 4)}</small>
         )}
       </div>
-      <AlbumCoverList image={track.image || track.album.images[1].url} />
+      {children}
     </>
   );
 };

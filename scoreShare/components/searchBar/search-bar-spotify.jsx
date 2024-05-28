@@ -138,7 +138,12 @@ export const SearchBarSpotify = (props) => {
                 }}
                 key={v4()}
               >
-                <ListedTrack track={track} />
+                <ListedTrack track={track}>
+                <AlbumCoverList
+                    image={track.image || track.album.images[1].url}
+                    className="w-16 md:w-28 2xl:w-32"
+                  />
+                </ListedTrack>
               </div>
             ))}
         </div>
