@@ -16,21 +16,21 @@ export const FeaturedTracks = () => {
       >
         <TabsList
           defaultValue="popular"
-          className="w-full p-8 text-muted-foreground bg-cyan-800/60"
+          className="w-full p-8 text-sm text-muted-foreground bg-cyan-800/60"
         >
           <TabsTrigger
             value="popular"
-            className="flex gap-1 data-[state=active]:text-xl transition-all"
+            className="flex gap-1 data-[state=active]:text-lg md:data-[state=active]:text-xl transition-all"
           >
             <MyManrope>POPULAR TRACKS</MyManrope>
-            <LightningBoltIcon color="orange" height={25} width={25} />
+            <LightningBoltIcon color="orange" className="aspect-square w-min"/>
           </TabsTrigger>
           <TabsTrigger
             value="recent"
-            className="flex gap-1 data-[state=active]:text-xl transition-all"
+            className="flex gap-1 data-[state=active]:text-lg md:data-[state=active]:text-xl transition-all"
           >
             <MyManrope>NEW TRACKS</MyManrope>
-            <CountdownTimerIcon color="rgb(3,165,224)" height={25} width={25} />
+            <CountdownTimerIcon color="rgb(3,165,224)" className="aspect-square w-min" />
           </TabsTrigger>
         </TabsList>
         <TabsContent value="popular" className="w-full">

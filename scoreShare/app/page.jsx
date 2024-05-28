@@ -38,7 +38,7 @@ export default function Home() {
       >
         <source src="/squares.mp4" type="video/mp4" />
       </video>
-      <nav className="h-[6vh] md:h-[11vh] border-b px-4 w-full flex items-end justify-between">
+      <nav className="basis-[6%] border-b px-4 w-full flex items-end justify-between">
         <NavLogo />
         <LoginButton>
           <Button
@@ -51,8 +51,8 @@ export default function Home() {
         </LoginButton>
       </nav>
 
-      <section className="grid w-full grid-cols-1 gap-5 h-max md:h-[89vh]  md:grid-cols-2">
-        <div className="flex flex-col h-[inherit] p-1 md:p-0 w-full gap-2 items-center  md:items-end justify-center rounded-sm  bg-gradient-to-b from-purple-400/20 to-emerald-50/10 text-primary backdrop-blur-[2px]">
+      <section className="grid w-full grid-cols-1 gap-5 basis-[94%]  md:grid-cols-2">
+        <div className="flex flex-col h-[inherit] p-1 md:p-0 w-full gap-2 items-center  md:items-end justify-center rounded-sm  bg-gradient-to-b from-purple-400/20 to-emerald-50/10 text-primary backdrop-blur-[2px] pe-2">
           <div className="flex items-end ">
             <Image src="/star.png" alt="star" width={48} height={48} />
             <small className="font-bold text-white">Best app of 2021</small>
@@ -79,10 +79,7 @@ export default function Home() {
               "w-full md:w-10/12 my-2 text-center md:text-right hyphens-auto break-before-right text-primary/80"
             )}
           >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-            cupiditate voluptates facilis beatae aut aliquid labore quisquam
-            reprehenderit tempore omnis, asperiores nesciunt. Ab eum veniam
-            magnam natus! Architecto, nesciunt velit!
+            Welcome to the collaborative music app! Share your tabs, sheets and arrangements with musicians all over the world and download other's users media.
           </p>
           <div className="flex gap-2">
             <button className="hover:tracking-[.2rem] md:hover:tracking-custom self-end h-fit px-[1.6rem] py-[.8rem] bg-emerald-500 text-white text-lg rounded-full transition-all duration-300 hover:bg-indigo-500 w-full">
