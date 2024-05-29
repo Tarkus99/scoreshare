@@ -51,16 +51,10 @@ export const addComment = async (formData) => {
       status = CREATED;
     }
 
-    return {
-      status: status,
-      data: result,
-    };
+    return { status: status, data: result };
   } catch (error) {
     const [status, message] = resolveError(error);
-    return {
-      status: status,
-      message: message,
-    };
+    return { status: status, message: message };
   }
 };
 

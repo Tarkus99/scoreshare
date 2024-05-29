@@ -65,14 +65,7 @@ export const getFilesByUserIdData = async (id) => {
 export const createFileData = async (conn = db, file) => {
   const result = await conn.file.create({
     data: file,
-    include: {
-      user: {
-        select: {
-          name: true,
-          image: true,
-        },
-      },
-    },
+    include: { user: { select: { name: true,  image: true } } }
   });
   return result;
 };
