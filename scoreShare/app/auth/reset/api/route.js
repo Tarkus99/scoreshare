@@ -13,6 +13,9 @@ export async function POST(request) {
     if (!existsUser)
       return Response.json({ message: "Email not found!" }, { status: 401 });
 
+    if(!existsUser.password)
+      return Response.json({ message: "Cannot reset a password for Google and Spotify accounts!" }, { status: 401 });
+
     const passwordResetToken = await generatePasswordResetToken(email);
 
     await sendPasswordResetEmail(

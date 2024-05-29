@@ -1,11 +1,10 @@
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+const domain = process.env.NEXT_PUBLIC_DOMAIN_URL;
 
 export const sendVerfiEmail = async (email, token) => {
-  const domain = process.env.NEXT_PUBLIC_DOMAIN_URL;
   const confirmLink = `${domain}/auth/new-verification?token=${token}`;
-
   const a = await resend.emails.send({
     from: "mail@scoreshare.org",
     to: email,

@@ -31,10 +31,12 @@ export const ResetForm = () => {
   });
 
   const onSubmit = (values) => {
+    setLoading(true)
     resetMessages()
     createPasswordReset(values)
       .then((data) => setSuccess(data.message))
-      .catch((error) => setFailed(error.response.data.message));
+      .catch((error) => setFailed(error.response.data.message))
+      .finally(()=>setLoading(false));
   };
 
   return (

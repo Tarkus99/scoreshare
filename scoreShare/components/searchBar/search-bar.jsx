@@ -1,14 +1,11 @@
 "use client";
 import { getAvailableTracks } from "@/fetching";
-import Image from "next/image";
 import Link from "next/link";
 import React, { Fragment, useRef, useState } from "react";
 import { GoSearch } from "react-icons/go";
 import { GoPlus } from "react-icons/go";
-import { RotatingTriangles } from "react-loader-spinner";
 import { v4 } from "uuid";
 import { AlbumCoverList } from "./album-cover-list";
-import { LoadingTriangles } from "../misc/loading-triangles";
 import { ListedTrack } from "./listed-track";
 import { InputSearchBar } from "./input-search-bar";
 import { LoadingAndClearButtons } from "./loading-clear-buttons";
@@ -50,7 +47,6 @@ export const SearchBar = ({ isSearching }) => {
     <Fragment>
       <div className="relative z-0 flex w-full border-gray-300 rounded-full search-bar bg-gray-50">
         <InputSearchBar
-          º
           variant={isSearching ? "default" : "navbar"}
           placeholder="Search for songs, artists, ..."
           onChange={onChange}

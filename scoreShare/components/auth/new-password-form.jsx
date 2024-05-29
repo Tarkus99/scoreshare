@@ -4,7 +4,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormMessage,
 } from "@/components/ui/form";
 
 import { useForm } from "react-hook-form";
@@ -16,7 +15,7 @@ import { NewPasswordSchema } from "@/schemas";
 import { Input } from "../ui/input";
 import { Button } from "@/components/ui/button";
 import { AlertMessage } from "../misc/alert";
-import { createPasswordReset, resetPassword } from "@/fetching";
+import { resetPassword } from "@/fetching";
 import { PasswordInfo } from "./password-info";
 import { useSearchParams } from "next/navigation";
 import { useResponseMessages } from "@/hooks/use-response-messages";
