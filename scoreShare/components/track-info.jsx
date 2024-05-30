@@ -42,7 +42,7 @@ export const TrackInfo = async ({ id }) => {
               </Label>
               <p className="flex flex-wrap justify-center capitalize ">
                 {trackInfo.artists.map((artist, index) => (
-                  <Link className="hover:underline transition-all text-balance" href={artist.link}>
+                  <Link key={artist.id} className="hover:underline transition-all text-balance" href={artist.link}>
                     {artist.name}
                     {!!trackInfo.artists[index + 1] && ", "}
                   </Link>

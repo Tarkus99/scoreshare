@@ -8,7 +8,7 @@ const PopularTracks = async () => {
   return (
     <div className="grid grid-flow-row grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
       {tracks.map((item) => (
-        <TrackCardDashboard item={item}/>
+        <TrackCardDashboard key={item.id} item={item}/>
       ))}
     </div>
   );

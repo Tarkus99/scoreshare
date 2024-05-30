@@ -40,10 +40,10 @@ export const NewPasswordForm = () => {
     resetMessages()
     resetPassword(values, token)
       .then((data) => {
-        window.alert("");
         setSuccess(data.message);
       })
-      .catch((error) => setFailed(error.response.data.message));
+      .catch((error) => setFailed(error.response.data.message))
+      .finally(()=>setLoading(false))
   };
 
   return (

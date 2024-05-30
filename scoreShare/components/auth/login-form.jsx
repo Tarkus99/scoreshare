@@ -42,15 +42,17 @@ export const LoginForm = () => {
   const onSubmit = (values) => {
     resetMessages();
     setLoading(true);
-    setTimeout(() => {
-      login(values)
-        .then((data) => {
-          setSuccess(data?.success);
-          setFailed(data?.error);
-        })
-        .catch((error) => setFailed("Something went wrong"))
-        .finally(() => setLoading(false));
-    }, 500);
+    login(values)
+      .then((data) => {
+        if (data) {
+          setFailed(data.error);
+          setSuccess(data.success);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setFailed("Something went wrong")})
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -127,11 +129,7 @@ export const LoginForm = () => {
               message={success}
               loading={true}
             />
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={loading}
-            >
+            <Button type="submit" className="w-full" disabled={loading}>
               {loading && <ReloadIcon className="w-4 h-4 mr-2 animate-spin" />}
               Login
             </Button>

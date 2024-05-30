@@ -6,7 +6,6 @@ import React from 'react'
 export const TrackCardDashboard = ({item}) => {
   return (
     <div
-          key={item.id}
           className="relative flex items-center justify-between flex-1 w-full h-auto gap-1 p-1 overflow-y-hidden transition-all rounded cursor-pointer group sm:transition-all text-primary hover:bg-purple-100 hover:cursor-pointer hover:shadow-inner max-h-32 hover:scale-105 hover:z-50"
         >
           <a href={`/tracks/${item.id}`} className="inline-block overflow-hidden max-w-[60%] md:max-w-[70%]" onClick={()=>{
