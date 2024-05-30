@@ -20,7 +20,7 @@ export const UserButton = memo(() => {
     <DropdownMenu className="relative">
       <DropdownMenuTrigger>
         <Avatar className="transition-all drop-shadow-md hover:scale-105">
-          <AvatarImage src={user.image || undefined} />
+          <AvatarImage src={user?.image || undefined} />
           <AvatarFallback className="bg-cyan-50">
             <FaUser />
           </AvatarFallback>
