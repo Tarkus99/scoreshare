@@ -13,11 +13,23 @@ import { LogOutButton } from "../auth/log-out-button";
 import { ExitIcon } from "@radix-ui/react-icons";
 import { GoToProfileButton } from "../auth/go-to-profile-button";
 import { LoginButton } from "../auth/login-button";
+import { Button } from "../ui/button";
 AvatarImage;
 
 export const UserButton = memo(() => {
   const user = useUser();
-  if (!user) return <LoginButton />;
+  if (!user)
+    return (
+      <LoginButton>
+        <Button
+          variant="outline"
+          size="default"
+          className="mb-1 text-white bg-indigo-500 border-none rounded-full drop-shadow-lg"
+        >
+          Sign in
+        </Button>
+      </LoginButton>
+    );
   return (
     <DropdownMenu className="relative">
       <DropdownMenuTrigger>

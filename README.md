@@ -1,5 +1,5 @@
 # scoreShare
-
+Visit www.scoreshare.org
 scoreShare is an application where musicians all over the world can share media by creating tracks.
 Made with NextJS, TailwindCSS, Prisma JS & React.
 
