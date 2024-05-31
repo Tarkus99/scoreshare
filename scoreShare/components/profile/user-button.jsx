@@ -12,10 +12,12 @@ import { FaUser } from "react-icons/fa6";
 import { LogOutButton } from "../auth/log-out-button";
 import { ExitIcon } from "@radix-ui/react-icons";
 import { GoToProfileButton } from "../auth/go-to-profile-button";
+import { LoginButton } from "../auth/login-button";
 AvatarImage;
 
 export const UserButton = memo(() => {
   const user = useUser();
+  if (!user) return <LoginButton />;
   return (
     <DropdownMenu className="relative">
       <DropdownMenuTrigger>
