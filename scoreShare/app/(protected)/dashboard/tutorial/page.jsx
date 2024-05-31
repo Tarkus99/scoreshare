@@ -17,7 +17,7 @@ const Tutorial = () => {
           app works and how you can use it. It's easy, but just in case, here
           are some tips that migth help you:
         </p>
-        <ol type="1" className="space-y-2 text-white md:ms-8">
+        <ol type="1" className="space-y-2 text-white md:ms-8 pb-2">
           <TutorialItem>
             <p>
               You're a great musician and you're looking for an arrangement of
@@ -166,8 +166,8 @@ const Tutorial = () => {
               Also, a <Semibold>upload file button</Semibold> is available to adding new files to that track:
               <Image
               alt="tip1"
-              width={700}
-              height={700}
+              width={300}
+              height={300}
               src={"/tutorial/upload-button.png"}
               className="my-2 rounded drop-shadow-lg md:ms-12"
             />
@@ -230,7 +230,7 @@ const Tutorial = () => {
           </TutorialItem>
           <TutorialItem>
             <p>
-              To conclude this tutorial, clicking on the <Semibold>info</Semibold> will redirect you to your profile edit form.
+              To conclude this tutorial, clicking on the <Semibold>info</Semibold> tab will redirect you to your profile edit form.
               <Image
                 alt="tip1"
                 width={600}

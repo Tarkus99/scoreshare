@@ -124,17 +124,17 @@ export function removeExtensionFromFileNameInForm(name) {
   return name.split(".").slice(0, -1).join(".");
 }
 export function removeExtensionFromName(name){
-  const arr = name.split(".");
-  if (arr.length > 1) return arr.slice(0, -1).join(".");
-
-  return name;
+  const arr = name.split(new RegExp(/[.]|[_]/gm));
+  console.log(arr);
+  return arr.join(" ");
 }
-export const MAX_FILE_SIZE = 4194304;
+export const MAX_FILE_SIZE = 18_874_368;
 export const ALLOWED_TYPES = ["audio/mpeg", "video/mp4", "application/pdf"];
 export const ORDER_BY_RECENT = 1;
 export const ORDER_BY_POPULARITY = 2;
 
 export const resolveFileName = (fileInfo, user, oldFile = "") => {
+  console.log(fileInfo.name);
   return `${fileInfo.name.trim().split(" ").join("_")}_${fileInfo.instrument}_${
     user.id
   }.${oldFile?.split(".").pop() || getExtension(fileInfo.file)}`.toLowerCase();

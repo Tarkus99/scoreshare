@@ -53,7 +53,7 @@ function isPrismaError(error) {
 }
 
 function isSupabaseError(error) {
-  return error.code instanceof String;
+  return typeof error.code === "string";
 }
 
 function isResendError(error) {

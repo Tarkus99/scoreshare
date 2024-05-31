@@ -74,6 +74,9 @@ export async function POST(request) {
       fileData.append("file", body.get("file"));
 
       await uploadFileAlongWithTrack(fileData, track.id, tx);
+    }, {
+      maxWait: 5000,
+      timeout: 10000
     });
 
     return Response.json(
