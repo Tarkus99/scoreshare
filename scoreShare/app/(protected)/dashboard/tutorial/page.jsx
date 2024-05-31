@@ -8,11 +8,13 @@ import Link from "next/link";
 const Tutorial = () => {
   return (
     <div>
-        <h1 className="text-shadow-white text-2xl text-center"><MyManrope>User's manual</MyManrope></h1>
+      <h1 className="text-shadow-white text-2xl text-center">
+        <MyManrope>User's manual</MyManrope>
+      </h1>
       <div className="px-1 md:px-5 w-full rounded bg-cyan-700/40 pt-4">
-        <p className="w-full mb-2 text-center text-white text-pretty hyphens-auto">
+        <p className="w-full mb-2 text-start text-white text-pretty hyphens-auto">
           So you just have landed in here? Don't worry, we will explain how this
-          web works and how you can use it. It's easy, but just in case, here
+          app works and how you can use it. It's easy, but just in case, here
           are some tips that migth help you:
         </p>
         <ol type="1" className="space-y-2 text-white md:ms-8">
@@ -147,7 +149,7 @@ const Tutorial = () => {
           <TutorialItem>
             <p>
               Once the track has been uploaded, you can search it in the top
-              search bar and you will be redirect to the track page. In this
+              search bar and by clicking on it you will be redirect to the track page. In this
               page you'll find the basic information concerning the track, and
               at the bottom, a table will be displayed. This table contains all
               the files the users have upload to that track, and you can filter
@@ -160,6 +162,16 @@ const Tutorial = () => {
               src={"/tutorial/filestable.png"}
               className="my-2 rounded drop-shadow-lg md:ms-12"
             />
+            <p>
+              Also, a <Semibold>upload file button</Semibold> is available to adding new files to that track:
+              <Image
+              alt="tip1"
+              width={700}
+              height={700}
+              src={"/tutorial/upload-button.png"}
+              className="my-2 rounded drop-shadow-lg md:ms-12"
+            />
+            </p>
             <p>
               Let's try by
               <Semibold> clicking on a row</Semibold>.
@@ -189,7 +201,7 @@ const Tutorial = () => {
               Finally, you can manage your uploaded files in your profile. Click
               on the avatar at the{" "}
               <Semibold>top right corner of the page</Semibold> and select
-              <Semibold>"Go to profile"</Semibold>
+              <Semibold> "Go to profile"</Semibold>
             </p>
             <Image
               alt="tip1"
@@ -218,7 +230,21 @@ const Tutorial = () => {
           </TutorialItem>
           <TutorialItem>
             <p>
-              And that's all, I hope you got the main idea and find yourself
+              To conclude this tutorial, clicking on the <Semibold>info</Semibold> will redirect you to your profile edit form.
+              <Image
+                alt="tip1"
+                width={600}
+                height={600}
+                src={"/tutorial/profile-info.png"}
+                className="my-2 rounded drop-shadow-lg md:ms-12"
+              />
+              Here you can update your name, email, password and avatar.
+              <small>Note that modifying the email and password is only allowed to users who first signed up manually</small>
+            </p>
+          </TutorialItem>
+          <TutorialItem>
+            <p>
+              And that's all, we hope that you got the main idea and find yourself
               confident on start using the application!
             </p>
           </TutorialItem>

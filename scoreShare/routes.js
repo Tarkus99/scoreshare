@@ -1,5 +1,5 @@
 //routes accesible to public. Not authentication required
-export const publicRoutes = ["/", "/auth/new-verification"];
+export const publicRoutes = ["/", "/auth/new-verification", "/dashboard/tutorial"];
 
 //routes used for authentication. Redirect logged user to profile
 export const authRoutes = [
